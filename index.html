@@ -2,280 +2,398 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Literata:opsz,wght@7..72,400;7..72,600&family=Schibsted+Grotesk:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap">
 <style id="kk-css">
-/* Layout: gedrucktes Kochbuch — Titelseite mit Inhaltsverzeichnis, Kapitel-Aufschlagseiten, Rezept als Doppelseite (Zutaten links, Zubereitung rechts); Kapitelfarben als Daumenregister am rechten Rand. Die Küche (Editor) nutzt dieselben Tokens, nüchtern. */
+/* Layout: Karteikasten auf dem Küchentisch. Die Titelkarte ist gebaut wie der Kühlschrankmagnet (Reiter, Schreibmaschine, rote Kopflinie, blaue Schreiblinien), Kapitel sind farbige Leitkarten mit versetzten Reitern, jedes Rezept ist eine linierte Karteikarte. Papier bleibt in beiden Themes Papier; Tisch und Licht wechseln (Tag: Sonne durchs Sprossenfenster, Nacht: Mondlicht). Die Küche (Editor) liegt als schlichtes Blatt auf dem Tisch. */
 :root {
-  --paper: #FBFBF9;
+  --table: #A3AF9C;
+  --table-ink: #1C261D;
+  --shade: rgba(26, 42, 28, .2);
+  --card: #FFFFFF;
   --sheet: #FFFFFF;
-  --ink: #1E1D1B;
-  --muted: #69665F;
-  --rule: #E3E1DB;
-  --rule-strong: #BDB9B0;
-  --soft: #F2F1EC;
+  --paper: #F6F5F1;
+  --soft: #EFEDE7;
+  --ink: #23211E;
+  --muted: #69655D;
+  --rule: #E2DED6;
+  --rule-strong: #B9B3A8;
+  --line-blue: #B2CCE6;
+  --line-red: #D5504A;
+  --grid: #D5E3F0;
+  --hl: rgba(255, 224, 86, .5);
   --ch: #1F5E7A;
-  --ch-text: var(--ch);
-  --ok: #2F6B3F;
-  --ok-soft: #E1EEE3;
-  --warn: #8A5A00;
-  --warn-soft: #F6EBCF;
-  --danger: #A3322A;
-  --danger-soft: #F7E0DD;
-  --f-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --ok: #2F6B3F; --ok-soft: #E1EEE3;
+  --warn: #8A5A00; --warn-soft: #F6EBCF;
+  --danger: #A3322A; --danger-soft: #F7E0DD;
+  --leaf: rgba(22, 38, 24, .3);
+  --shadow-card: 0 1px 1px rgba(45, 30, 12, .16), 0 4px 10px -2px rgba(45, 30, 12, .2), 0 18px 32px -16px rgba(45, 30, 12, .38);
+  --shadow-lift: 0 2px 2px rgba(45, 30, 12, .14), 0 12px 20px -6px rgba(45, 30, 12, .26), 0 30px 44px -20px rgba(45, 30, 12, .42);
+  --shadow-slip: 0 1px 1px rgba(45, 30, 12, .14), 0 6px 14px -6px rgba(45, 30, 12, .34);
+  --f-type: "American Typewriter", "Courier Prime", "Courier New", monospace;
   --f-text: "Literata", Georgia, "Times New Roman", serif;
-  --f-ui: "Schibsted Grotesk", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --shadow: 0 1px 2px rgba(30, 29, 27, .05), 0 8px 24px rgba(30, 29, 27, .06);
+  --f-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --line: 1.875rem;
+  --lift: .375rem;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #151514; --sheet: #1C1C1A; --ink: #ECEAE4; --muted: #A29F97; --rule: #33322E; --rule-strong: #57554F; --soft: #23221F;
-    --ch-text: color-mix(in oklab, var(--ch) 50%, white);
-    --ok: #8CC79B; --ok-soft: #1F3324; --warn: #E3B354; --warn-soft: #3A2F16; --danger: #EE8F85; --danger-soft: #3D201D;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
-    color-scheme: dark;
+    --table: #1E2620; --table-ink: #E2E9E0; --shade: rgba(0, 0, 0, .3);
+    --muted: #55514A; --card: #E7E3DA; --sheet: #E7E3DA; --paper: #DEDAD0; --soft: #D9D3C8; --rule: #CEC7BA; --rule-strong: #A39C8F;
+    --line-blue: #98B1CA; --line-red: #C2463F; --grid: #C2CFDC;
+    --leaf: rgba(0, 0, 0, .42);
+    --shadow-card: 0 1px 1px rgba(0, 0, 0, .4), 0 6px 14px -2px rgba(0, 0, 0, .45), 0 22px 38px -14px rgba(0, 0, 0, .65);
+    --shadow-lift: 0 2px 2px rgba(0, 0, 0, .4), 0 14px 22px -6px rgba(0, 0, 0, .5), 0 32px 48px -18px rgba(0, 0, 0, .7);
+    --shadow-slip: 0 1px 1px rgba(0, 0, 0, .3), 0 6px 14px -6px rgba(0, 0, 0, .5);
   }
 }
 :root[data-theme="dark"] {
-  --paper: #151514; --sheet: #1C1C1A; --ink: #ECEAE4; --muted: #A29F97; --rule: #33322E; --rule-strong: #57554F; --soft: #23221F;
-  --ch-text: color-mix(in oklab, var(--ch) 50%, white);
-  --ok: #8CC79B; --ok-soft: #1F3324; --warn: #E3B354; --warn-soft: #3A2F16; --danger: #EE8F85; --danger-soft: #3D201D;
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
-  color-scheme: dark;
+  --table: #1E2620; --table-ink: #E2E9E0; --shade: rgba(0, 0, 0, .3);
+  --muted: #55514A; --card: #E7E3DA; --sheet: #E7E3DA; --paper: #DEDAD0; --soft: #D9D3C8; --rule: #CEC7BA; --rule-strong: #A39C8F;
+  --line-blue: #98B1CA; --line-red: #C2463F; --grid: #C2CFDC;
+  --leaf: rgba(0, 0, 0, .42);
+  --shadow-card: 0 1px 1px rgba(0, 0, 0, .4), 0 6px 14px -2px rgba(0, 0, 0, .45), 0 22px 38px -14px rgba(0, 0, 0, .65);
+  --shadow-lift: 0 2px 2px rgba(0, 0, 0, .4), 0 14px 22px -6px rgba(0, 0, 0, .5), 0 32px 48px -18px rgba(0, 0, 0, .7);
+  --shadow-slip: 0 1px 1px rgba(0, 0, 0, .3), 0 6px 14px -6px rgba(0, 0, 0, .5);
 }
-* { box-sizing: border-box; --ch-text: var(--ch); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) * { --ch-text: color-mix(in oklab, var(--ch) 50%, white); } }
-:root[data-theme="dark"] * { --ch-text: color-mix(in oklab, var(--ch) 50%, white); }
-body { background: var(--paper); color: var(--ink); font-family: var(--f-ui); font-size: 15px; line-height: 1.5; }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
-h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 400; }
+* { box-sizing: border-box; --ch-text: color-mix(in oklab, var(--ch) 78%, #000); }
+html { background: var(--table); }
+body { background: var(--table); color: var(--table-ink); font-family: var(--f-text); font-size: 1rem; line-height: 1.5; -webkit-text-size-adjust: 100%; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--table); }
+h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 700; }
+p { margin: 0; }
 button, input, select, textarea { font: inherit; color: inherit; }
 a { color: inherit; }
-:focus-visible { outline: 2px solid var(--ch-text); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--line-red); outline-offset: 2px; }
+.top a:focus-visible, .crumbs a:focus-visible, .r-nav a:focus-visible, .r-up a:focus-visible, .register a:focus-visible, .linkbtn:focus-visible, .foot a:focus-visible { outline-color: var(--table-ink); }
+.ing:focus-visible, .r-method li:focus-visible { outline-offset: -2px; }
 .wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.eyebrow { font-family: var(--f-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; color: var(--muted); }
 .muted { color: var(--muted); }
 .num { font-variant-numeric: tabular-nums; }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* Kopfzeile */
-.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 6; background: var(--paper); border-bottom: 1px solid var(--rule); }
-.top .wrap { display: flex; align-items: center; gap: 6px; padding-block: 10px; }
-.mark { font-family: var(--f-display); font-size: 25px; text-decoration: none; margin-right: auto; line-height: 1.1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.nav a { text-decoration: none; padding: 7px 10px; border-radius: 6px; font-weight: 600; font-size: 14px; white-space: nowrap; }
-.nav a:hover, .nav a[aria-current="page"] { background: var(--soft); }
-.nav .count { font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 400; }
+/* ---------- Fläche und Schattenspiel ---------- */
+/* Matte Arbeitsplatte (Salbei), darauf weiche Schatten eines Sprossenfensters und zweier Olivenzweige.
+   Das Fensterkreuz wandert langsam, die Zweige wiegen sich. Beim Rezept und in der Küche steht alles still. */
+.tabletop { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background-color: var(--table);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='m' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .12 0 0 0 0 .08 .55 0 0 0 -.2'/%3E%3C/filter%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .08 0 0 0 0 .05 .7 0 0 0 -.27'/%3E%3C/filter%3E%3Crect width='900' height='900' filter='url(%23m)'/%3E%3Crect width='900' height='900' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 900px 900px; }
+.window { position: absolute; inset: -30%; --P: 44vmax; --Q: 36vmax;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(var(--P) - 5.2vmax), var(--shade) calc(var(--P) - 3.4vmax) calc(var(--P) - 1.8vmax), transparent var(--P)),
+    repeating-linear-gradient(180deg, transparent 0 calc(var(--Q) - 5.2vmax), var(--shade) calc(var(--Q) - 3.4vmax) calc(var(--Q) - 1.8vmax), transparent var(--Q));
+  transform: translate3d(0, 0, 0) skewX(-14deg) rotate(-6deg); will-change: transform, opacity; animation: drift 120s ease-in-out infinite alternate, clouds 33s ease-in-out infinite; }
+.branch { position: absolute; width: min(72vmin, 640px); aspect-ratio: 1; }
+.branch.b1 { left: -8vmin; bottom: -10vmin; }
+.branch.b2 { right: -10vmin; top: -12vmin; width: min(60vmin, 540px); transform: rotate(180deg); }
+.sway { width: 100%; height: 100%; color: var(--leaf); filter: blur(4px); transform-origin: 5% 95%; will-change: transform; animation: sway 7.5s ease-in-out infinite alternate; }
+.b2 .sway { animation-duration: 9.3s; animation-delay: -3s; filter: blur(6px); }
+.sway svg { display: block; width: 100%; height: 100%; }
+@keyframes drift { from { transform: translate3d(-5vw, -3vh, 0) skewX(-14deg) rotate(-6deg); } to { transform: translate3d(7vw, 5vh, 0) skewX(-14deg) rotate(-6deg); } }
+@keyframes clouds { 0%, 100% { opacity: 1; } 40% { opacity: .72; } 55% { opacity: .55; } 72% { opacity: .9; } }
+@keyframes sway { from { transform: rotate(-2.6deg); } to { transform: rotate(2.6deg); } }
+body.still .window, body.still .sway { animation-play-state: paused; }
+.page { position: relative; z-index: 1; }
 
-main { padding-block: 28px 80px; min-height: 60vh; }
+/* ---------- Kopf ---------- */
+.top .wrap { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 20px; padding-block: 18px 4px; }
+.mark { font: 700 1.3125rem/1.2 var(--f-type); text-decoration: none; margin-right: auto; color: var(--table-ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nav { display: flex; gap: 18px; }
+.nav a { font: 400 0.9375rem/1.2 var(--f-type); text-decoration: none; color: var(--table-ink); padding: 6px 0 4px; border-bottom: 2px solid transparent; white-space: nowrap; }
+.nav a:hover { border-bottom-color: currentColor; }
+.nav a[aria-current="page"] { border-bottom-color: var(--line-red); }
+.nav .count { font-variant-numeric: tabular-nums; }
+main { padding-block: 22px 64px; min-height: 60vh; }
+body[data-home="1"] .mark { visibility: hidden; }
+.crumbs { font: 0.9375rem/1.2 var(--f-type); color: var(--table-ink); margin-bottom: 10px; }
+.crumbs a { text-decoration: none; border-bottom: 1.5px solid transparent; }
+.crumbs a:hover { border-bottom-color: currentColor; }
+.foot { margin-top: 52px; font: 0.875rem/1.4 var(--f-type); color: var(--table-ink); display: flex; gap: 8px 16px; flex-wrap: wrap; justify-content: space-between; }
+.table-h { font: 700 0.875rem/1.2 var(--f-type); text-transform: uppercase; letter-spacing: .16em; color: var(--table-ink); margin-top: 46px; }
+.table-note { font: 1rem/1.5 var(--f-type); color: var(--table-ink); margin-top: 14px; }
 
-/* Knöpfe & Felder */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--rule-strong); background: var(--sheet); color: var(--ink); padding: 8px 14px; border-radius: 7px; cursor: pointer; font-weight: 600; font-size: 14px; text-decoration: none; line-height: 1.25; }
-.btn:hover { border-color: var(--ink); }
-.btn.primary { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.btn.go { background: var(--ok); border-color: var(--ok); color: var(--sheet); }
-.btn.ghost { background: transparent; border-color: transparent; }
-.btn.ghost:hover { background: var(--soft); }
-.btn.danger { color: var(--danger); }
-.btn.danger.solid { background: var(--danger); border-color: var(--danger); color: var(--sheet); }
-.btn:disabled { opacity: .5; cursor: not-allowed; }
-.btn.small { padding: 5px 10px; font-size: 13px; }
-.inp { background: var(--sheet); border: 1px solid var(--rule-strong); border-radius: 7px; padding: 9px 11px; width: 100%; min-width: 0; }
-.inp:focus { border-color: var(--ink); outline: none; }
-.chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.chip { border: 1px solid var(--rule-strong); background: var(--sheet); padding: 5px 12px; border-radius: 999px; font-size: 13px; cursor: pointer; font-weight: 600; }
-.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.tag { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--soft); color: var(--muted); font-weight: 600; }
-.tag.diet { background: var(--ok-soft); color: var(--ok); }
-.tag.example { background: var(--warn-soft); color: var(--warn); }
-.note { padding: 10px 14px; border-radius: 8px; background: var(--warn-soft); font-size: 14px; }
-.note.err { background: var(--danger-soft); }
-.note.ok { background: var(--ok-soft); }
-.spinner { width: 18px; height: 18px; border: 3px solid var(--rule); border-top-color: var(--ink); border-radius: 50%; animation: spin 1s linear infinite; flex: none; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 8px; font-weight: 600; z-index: 20; max-width: calc(100% - 32px); }
-.empty { text-align: center; padding: 56px 16px; display: grid; gap: 12px; justify-items: center; }
-.empty h2 { font-family: var(--f-display); font-size: 34px; }
-.empty p { max-width: 46ch; margin: 0; color: var(--muted); font-family: var(--f-text); }
+/* ---------- Papier: Reiter, Linien, Stempel ---------- */
+.lined { line-height: var(--line); background-image: repeating-linear-gradient(to bottom, transparent 0 calc(var(--line) - 1px), var(--line-blue) calc(var(--line) - 1px) var(--line)); background-position: 0 calc(-1 * var(--lift)); }
+.tab { position: absolute; bottom: calc(100% - 1px); left: calc(14px + var(--pos, 0) * (100% - 28px)); transform: translateX(calc(var(--pos, 0) * -100%)); max-width: calc(100% - 28px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background-color: var(--tab-bg, var(--card)); color: var(--ink); padding: 8px 16px 5px; border-radius: 8px 8px 0 0; font: 700 0.875rem/1.2 var(--f-type); text-decoration: none; box-shadow: 0 -1px 1px rgba(45, 30, 12, .08), -1px -1px 2px -1px rgba(45, 30, 12, .12); }
+.tab b { color: var(--ch-text); margin-right: 8px; font-variant-numeric: tabular-nums; }
+a.tab:hover { padding-bottom: 8px; }
+.stamp { display: inline-block; vertical-align: middle; font: 700 0.75rem/1 var(--f-type); text-transform: uppercase; letter-spacing: .1em; color: var(--ok); border: 2px solid currentColor; border-radius: 3px; padding: 4px 6px 3px; transform: rotate(-4deg); white-space: nowrap; }
+.stamp:nth-child(2n) { transform: rotate(2.5deg); }
+.stamp.warn { color: var(--warn); }
+.tbtn { font: 0.9375rem/1.2 var(--f-type); background: none; border: 0; padding: 0; cursor: pointer; color: var(--ink); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+.tbtn:hover { color: var(--line-red); }
+.tbtn:disabled { opacity: .45; cursor: default; color: var(--ink); }
+.linkbtn { font: 0.9375rem/1.2 var(--f-type); background: none; border: 0; padding: 0; cursor: pointer; color: var(--table-ink); text-decoration: underline; text-underline-offset: 4px; }
 
-/* Titelseite */
-.cover { padding-block: 24px 40px; border-bottom: 1px solid var(--rule); display: grid; gap: 14px; }
-.booktitle { font-family: var(--f-display); font-size: clamp(56px, 11vw, 132px); line-height: .92; letter-spacing: -.02em; }
-.booktitle em { font-style: italic; }
-.subtitle { font-family: var(--f-display); font-style: italic; font-size: clamp(22px, 3vw, 30px); color: var(--muted); margin: 0; }
-.intro { font-family: var(--f-text); font-size: 17px; max-width: 60ch; margin: 6px 0 0; white-space: pre-line; }
-.finder { display: grid; gap: 10px; margin-top: 18px; }
-.search { display: flex; align-items: center; gap: 8px; background: var(--sheet); border: 1px solid var(--rule-strong); border-radius: 999px; padding: 0 16px; max-width: 560px; }
-.search input { border: 0; background: transparent; padding: 11px 0; width: 100%; outline: none; font-size: 16px; }
-.search:focus-within { border-color: var(--ink); }
+/* ---------- Titelkarte (wie der Magnet) ---------- */
+.titlecard { --pad: clamp(18px, 4.5vw, 44px); position: relative; max-width: 760px; margin: 46px auto 0; padding: 22px var(--pad) 0; background-color: var(--card); color: var(--ink); border-radius: 3px; box-shadow: var(--shadow-card); }
+.tc-title { font: 700 clamp(2.375rem, 9vw, 4.375rem)/1.05 var(--f-type); letter-spacing: -.01em; padding-bottom: 12px; }
+.tc-lines { margin-inline: calc(-1 * var(--pad)); padding: 0 var(--pad) var(--line); border-top: 3px solid var(--line-red); font: 1.0625rem var(--f-type); line-height: var(--line); }
+.tc-intro { font-family: var(--f-text); font-style: italic; white-space: pre-line; max-width: 62ch; }
+.tc-count { color: var(--muted); }
+.tc-search { display: flex; align-items: baseline; gap: 10px; }
+.tc-search label { font-weight: 700; flex: none; }
+.tc-search input { --u: linear-gradient(var(--ink), var(--ink)) 0 calc(100% - var(--lift)) / 100% 1.5px no-repeat; flex: 1; min-width: 0; height: var(--line); line-height: var(--line); border: 0; border-radius: 0; background: var(--u); padding: 0 4px; font: inherit; outline: none; -webkit-appearance: none; appearance: none; }
+.tc-search input::placeholder { color: var(--muted); opacity: 1; }
+.tc-search input:focus { background: var(--u), var(--hl); }
+.tc-hits { flex: none; font: 700 0.9375rem/1.2 var(--f-type); background: none; border: 0; padding: 0; cursor: pointer; color: var(--line-red); white-space: nowrap; }
+.nw { white-space: nowrap; }
+.tc-ticks { display: flex; flex-wrap: wrap; column-gap: 20px; }
+.tick { display: inline-flex; align-items: center; gap: 8px; height: var(--line); background: none; border: 0; padding: 0; cursor: pointer; font: inherit; color: var(--ink); }
+.tick::before { content: ""; flex: none; width: .9em; height: .9em; border: 1.5px solid currentColor; display: inline-grid; place-items: center; font: 700 0.9375rem/1 var(--f-type); }
+.tick[aria-pressed="true"]::before { content: "x"; }
+.tick:hover { color: var(--line-red); }
 
-.toc { padding-top: 34px; }
-.toc > h2 { font-family: var(--f-display); font-size: 40px; margin-bottom: 18px; }
-.toc-grid { columns: 2 340px; column-gap: 48px; }
-.toc-ch { break-inside: avoid; margin-bottom: 26px; }
-.toc-ch > a { display: flex; align-items: baseline; gap: 12px; text-decoration: none; border-bottom: 2px solid var(--ch); padding-bottom: 6px; margin-bottom: 6px; }
-.toc-ch .no { font-family: var(--f-display); font-size: 30px; color: var(--ch-text); font-variant-numeric: tabular-nums; }
-.toc-ch .name { font-weight: 700; font-size: 16px; }
-.toc-ch ol { list-style: none; margin: 0; padding: 0; }
-.toc-ch li a { display: flex; align-items: baseline; text-decoration: none; padding: 5px 0; font-family: var(--f-text); font-size: 16px; }
-.toc-ch li a:hover .t { text-decoration: underline; text-underline-offset: 3px; }
-.toc-ch .dots { flex: 1; border-bottom: 1px dotted var(--rule-strong); margin: 0 8px; min-width: 24px; transform: translateY(-4px); }
-.toc-ch .m { font-family: var(--f-ui); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* ---------- Leitkarten (Inhalt) ---------- */
+.leits { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 0 26px; align-items: start; }
+.leit { padding-top: 40px; }
+.leit-card { --muted: #4F4B44; --tint: color-mix(in oklab, var(--ch) 21%, var(--card)); --tab-bg: var(--tint); position: relative; background-color: var(--tint); color: var(--ink); padding: 14px 20px 16px; border-radius: 3px; box-shadow: var(--shadow-card); }
+.leit ol { list-style: none; margin: 0; padding: 0; font: 0.9688rem/1.3 var(--f-type); }
+.leit li a { display: flex; align-items: baseline; gap: 8px; padding: 6px 0; text-decoration: none; }
+.leit li .t { min-width: 0; }
+.leit li a:hover .t { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.leit .dots { flex: 1; min-width: 18px; border-bottom: 2px dotted color-mix(in oklab, var(--ink) 35%, transparent); transform: translateY(-4px); }
+.leit .m { font-size: 0.8438rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.leit-head .leit-card { padding: 18px 24px 20px; }
+.leit-head h1 { font: 700 clamp(1.875rem, 6vw, 3.125rem)/1.08 var(--f-type); }
+.leit-count { font: 0.9375rem/1.4 var(--f-type); color: var(--muted); margin-top: 6px; }
 
-/* Karten */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 28px 22px; }
-.card { display: grid; gap: 8px; text-decoration: none; min-width: 0; align-content: start; }
-.card .pic { aspect-ratio: 4 / 3; max-width: 100%; background: var(--soft); border-radius: 4px; overflow: hidden; position: relative; }
-.card .pic img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s ease; }
-.card:hover .pic img { transform: scale(1.03); }
-.card .ph { position: absolute; inset: 0; display: grid; place-items: center; background: var(--ch); color: rgba(255,255,255,.9); font-family: var(--f-display); font-size: 64px; }
-.card .chap { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ch-text); }
-.card h3 { font-family: var(--f-display); font-size: 27px; line-height: 1.05; }
-.card .meta { display: flex; gap: 12px; font-size: 13px; color: var(--muted); flex-wrap: wrap; font-variant-numeric: tabular-nums; }
-.results-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 30px; margin-bottom: 18px; }
-.results-head h2 { font-family: var(--f-display); font-size: 34px; }
+/* ---------- Rezeptkarten (Kapitel, Suche, Merkliste) ---------- */
+.rcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 30px 26px; margin-top: 32px; }
+.rc { --line: 1.625rem; --lift: .3125rem; position: relative; display: flex; flex-direction: column; min-width: 0; background-color: var(--card); color: var(--ink); border-radius: 3px; box-shadow: var(--shadow-card); text-decoration: none; padding: 16px 18px 0; transition: transform .25s ease, box-shadow .25s ease; }
+.rc:hover, .rc:focus-visible { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+.rc-chap { font: 0.75rem/1.2 var(--f-type); text-transform: uppercase; letter-spacing: .1em; color: var(--ch-text); margin-bottom: 6px; }
+.rc h3 { font: 700 1.1875rem/1.25 var(--f-type); padding-bottom: 10px; display: flex; align-items: flex-end; }
+@media (min-width: 600px) { .rc h3 { min-height: calc(2.5em + 10px); } }
+.rc.haspic h3 { padding-right: 92px; }
+.rc-lines { flex: 1; margin-inline: -18px; padding: 0 18px var(--line); border-top: 2px solid var(--line-red); }
+.rc-lines:has(.rc-stamps) { padding-bottom: 0; }
+.rc-desc { font: 0.9062rem/var(--line) var(--f-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.rc-meta { font: 0.875rem/var(--line) var(--f-type); color: var(--muted); }
+.rc-stamps { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 8px; }
+.rc-stamps .stamp { padding: 3px 5px 2px; margin-block: calc((var(--line) - 1.3125rem) / 2); }
+.rc-photo { position: absolute; top: -12px; right: 14px; width: 86px; padding: 4px; background: var(--card); box-shadow: var(--shadow-slip); transform: rotate(4deg); }
+.rc-photo img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.results-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 40px; color: var(--table-ink); }
+.results-head h2 { font: 700 1.25rem/1.2 var(--f-type); }
 
-/* Kapitel-Aufschlagseite */
-.opener { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 24px; align-items: end; padding-bottom: 22px; margin-bottom: 30px; border-bottom: 3px solid var(--ch); }
-.opener .big { font-family: var(--f-display); font-size: clamp(90px, 16vw, 180px); line-height: .8; color: var(--ch-text); font-variant-numeric: tabular-nums; }
-.opener h1 { font-family: var(--f-display); font-size: clamp(40px, 6vw, 68px); line-height: 1; }
+/* ---------- Rezept: eine Karteikarte ---------- */
+.recipe { --pad: clamp(18px, 4.5vw, 46px); position: relative; margin-top: 44px; padding: 24px var(--pad) 0; background-color: var(--card); color: var(--ink); border-radius: 3px; box-shadow: var(--shadow-card); }
+.recipe > .tab { box-shadow: inset 0 4px 0 var(--ch), 0 -1px 1px rgba(45, 30, 12, .08); }
+.r-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: end; padding-bottom: 16px; }
+.r-head.haspic { grid-template-columns: minmax(0, 1fr) auto; }
+.r-head h1 { font: 700 clamp(1.875rem, 5.4vw, 3.25rem)/1.08 var(--f-type); letter-spacing: -.01em; }
+.lede { font: italic 400 1.0625rem/1.55 var(--f-text); color: var(--muted); margin-top: 10px; max-width: 60ch; }
+.r-photo { position: relative; margin: 0 6px 8px 0; width: clamp(170px, 25vw, 270px); max-width: 100%; padding: 8px; background: var(--card); box-shadow: var(--shadow-slip), 0 0 0 1px rgba(45, 30, 12, .06); transform: rotate(2deg); }
+.r-photo img { display: block; width: 100%; aspect-ratio: 5 / 4; object-fit: cover; }
+.r-photo::before { content: ""; position: absolute; top: -11px; left: 50%; width: 92px; height: 24px; margin-left: -46px; background: rgba(238, 232, 212, .7); box-shadow: 0 1px 2px rgba(0, 0, 0, .12); transform: rotate(-5deg); }
+.r-lined { margin-inline: calc(-1 * var(--pad)); padding: 0 var(--pad) calc(2 * var(--line)); border-top: 3px solid var(--line-red); }
+.facts { font: 1rem/var(--line) var(--f-type); }
+.facts .f { white-space: nowrap; margin-right: 22px; }
+.k { font-size: 0.75rem; line-height: 1; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-right: 7px; }
+.keywords { font: 0.9375rem/var(--line) var(--f-type); color: var(--muted); }
+.r-stamps { display: flex; flex-wrap: wrap; align-items: center; gap: 0 10px; min-height: var(--line); }
+.r-stamps .stamp { margin-block: calc((var(--line) - 1.4375rem) / 2); }
+.r-actions { display: flex; flex-wrap: wrap; column-gap: 26px; }
+.r-actions > * { height: var(--line); display: inline-flex; align-items: center; gap: 8px; }
+.wake { font: 0.9375rem/1.2 var(--f-type); color: var(--ink); cursor: pointer; }
+.wake input { accent-color: var(--ink); width: 1.1em; height: 1.1em; margin: 0; flex: none; }
+.r-body { display: grid; grid-template-columns: minmax(0, 20.625rem) minmax(0, 1fr); column-gap: 52px; margin-top: var(--line); }
+.r-lined h2 { font: 700 1rem/var(--line) var(--f-type); text-transform: uppercase; letter-spacing: .12em; }
+.r-main > section + section, .r-main > .source, .r-main > .keywords, .r-main > section + div { margin-top: var(--line); }
+.h-hint { font: italic 400 0.8125rem/1 var(--f-text); text-transform: none; letter-spacing: 0; color: var(--muted); margin-left: 10px; white-space: nowrap; }
 
-/* Daumenregister */
-.register { position: fixed; right: env(safe-area-inset-right, 0px); top: 50%; transform: translateY(-50%); display: none; flex-direction: column; gap: 3px; z-index: 4; }
-.register a { writing-mode: vertical-rl; background: var(--ch); color: #fff; text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: .06em; padding: 12px 7px; border-radius: 6px 0 0 6px; opacity: .78; transition: opacity .15s, padding .15s; max-height: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.register a:hover, .register a[aria-current="true"] { opacity: 1; padding-right: 12px; }
-@media (min-width: 1200px) { .register.on { display: flex; } }
-
-/* Rezept */
-.recipe .crumb { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ch-text); text-decoration: none; margin-bottom: 10px; }
-.r-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: 36px; align-items: end; padding-bottom: 28px; border-bottom: 1px solid var(--rule); }
-.r-head.nopic { grid-template-columns: minmax(0, 1fr); }
-.r-head h1 { font-family: var(--f-display); font-size: clamp(44px, 6.4vw, 84px); line-height: .95; letter-spacing: -.01em; }
-.lede { font-family: var(--f-text); font-style: italic; font-size: 19px; color: var(--muted); margin: 14px 0 0; max-width: 52ch; }
-.r-photo { margin: 0; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 4px; overflow: hidden; background: var(--soft); }
-.r-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.facts { display: flex; flex-wrap: wrap; margin: 22px 0 0; padding: 0; }
-.facts div { padding: 4px 18px 4px 0; margin: 0 18px 8px 0; border-right: 1px solid var(--rule); }
-.facts div:last-child { border-right: 0; }
-.facts dt { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
-.facts dd { margin: 0; font-family: var(--f-display); font-size: 24px; line-height: 1.2; font-variant-numeric: tabular-nums; }
-.r-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
-.r-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
-.wake { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
-.r-body { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 48px; padding-top: 30px; align-items: start; }
-.r-side { display: grid; gap: 26px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 70px); max-height: calc(100vh - 86px); overflow: auto; padding-right: 4px; }
-.r-side h2, .r-method h2, .r-extra h2 { font-family: var(--f-display); font-size: 32px; margin-bottom: 10px; }
-.calc { background: var(--soft); border-radius: 8px; padding: 14px; }
-.calc .eyebrow { margin-bottom: 8px; display: block; }
-.seg { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--paper); border-radius: 7px; padding: 3px; gap: 3px; margin-bottom: 12px; }
-.seg button { border: 0; background: transparent; padding: 6px 4px; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted); }
-.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
-.stepper { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.stepper button { width: 38px; height: 38px; border-radius: 7px; border: 1px solid var(--rule-strong); background: var(--sheet); font-size: 20px; cursor: pointer; line-height: 1; }
-.stepper input { width: 76px; text-align: center; font-size: 18px; font-variant-numeric: tabular-nums; }
+/* Rechenzettel auf Karopapier */
+.slip { position: relative; margin-bottom: var(--line); padding: 10px 16px; background-color: var(--card); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 15px 15px; background-position: -1px -1px; box-shadow: var(--shadow-slip); transform: rotate(-.7deg); font: 0.9375rem/1.4 var(--f-type); }
+.slip::before { content: ""; position: absolute; top: -10px; left: 28px; width: 70px; height: 22px; background: rgba(238, 232, 212, .72); box-shadow: 0 1px 2px rgba(0, 0, 0, .1); transform: rotate(-4deg); }
+.slip-h { font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 0.8125rem; white-space: nowrap; }
+.slip summary { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; min-height: 30px; padding-block: 4px; cursor: pointer; list-style: none; }
+.slip summary::-webkit-details-marker { display: none; }
+.slip summary .slip-h::before { content: "▸"; display: inline-block; width: 1em; transition: transform .15s; }
+.slip[open] summary .slip-h::before { transform: rotate(90deg); }
+.slip-sum { font-size: 0.875rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.slip[open] .slip-sum { display: none; }
+.slip-body { margin-top: 8px; }
+.seg { display: flex; flex-wrap: wrap; gap: 4px 6px; margin: 0 -8px 10px; }
+.seg button { background: none; border: 2px solid transparent; border-radius: 48% 52% 46% 54% / 62% 44% 56% 38%; padding: 3px 9px; font: 0.9375rem/1.3 var(--f-type); cursor: pointer; color: var(--muted); }
+.seg button:hover { color: var(--ink); }
+.seg button[aria-pressed="true"] { border-color: var(--line-red); color: var(--ink); font-weight: 700; transform: rotate(-2deg); }
 .calcrow { display: grid; gap: 6px; }
 .calcrow + .calcrow { margin-top: 10px; }
-.calcrow .lbl { font-size: 13px; font-weight: 600; }
-.pan { display: grid; gap: 6px; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 7px; background: var(--paper); }
-.pan + .pan { margin-top: 8px; }
+.calcrow .lbl, .pan .lbl { font-size: 0.875rem; font-weight: 700; }
+.stepper { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.stepper button { width: 36px; height: 36px; border: 1.5px solid var(--ink); border-radius: 3px; background: var(--card); font: 700 1.25rem/1 var(--f-type); cursor: pointer; color: var(--ink); }
+.stepper button:hover { background: var(--hl); }
+.slip .inp { font: 700 1.0625rem/1.2 var(--f-type); background: var(--card); border: 1.5px solid var(--ink); border-radius: 3px; padding: 6px 8px; width: 100%; min-width: 0; color: var(--ink); }
+.slip .inp:focus { background: var(--hl); outline: none; }
+.stepper .inp { width: 74px; text-align: center; }
+.slip select.inp { font-size: 0.9375rem; font-weight: 400; }
+.pan { display: grid; gap: 6px; }
+.pan + .pan { margin-top: 10px; }
 .pan .dims { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .pan .dims input { width: 70px; }
 .pan .dims select { width: auto; }
-.factor { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 10px; border-top: 1px dashed var(--rule-strong); }
-.factor b { font-family: var(--f-display); font-size: 30px; font-weight: 400; font-variant-numeric: tabular-nums; }
-.hint { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
-.ings h3, .r-method h3 { font-family: var(--f-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--ch-text); margin: 16px 0 4px; font-weight: 700; }
-.ings h3:first-child { margin-top: 0; }
-.ings ul { list-style: none; margin: 0; padding: 0; }
-.ing { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--rule); cursor: pointer; align-items: baseline; font-family: var(--f-text); font-size: 16px; }
-.ing:last-child { border-bottom: 0; }
-.ing .q { font-family: var(--f-ui); font-variant-numeric: tabular-nums; text-align: right; font-weight: 700; white-space: nowrap; font-size: 15px; }
-.ing .q.scaled { color: var(--ch-text); }
-.ing small { color: var(--muted); font-style: italic; }
-.ing.done { opacity: .4; text-decoration: line-through; }
-.r-method ol { list-style: none; margin: 0; padding: 0; counter-reset: s; }
-.r-method li { counter-increment: s; display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; padding: 12px 0; cursor: pointer; font-family: var(--f-text); font-size: 18px; line-height: 1.6; max-width: 68ch; border-bottom: 1px solid var(--rule); }
-.r-method li::before { content: counter(s); font-family: var(--f-display); font-size: 40px; line-height: .9; color: var(--ch-text); text-align: right; font-variant-numeric: tabular-nums; }
-.r-method li.done { opacity: .4; }
-.r-method h3 { margin-left: 66px; margin-top: 22px; }
-.r-extra { display: grid; gap: 24px; margin-top: 34px; }
-.tips { font-family: var(--f-text); font-size: 17px; white-space: pre-wrap; max-width: 68ch; border-left: 3px solid var(--ch); padding: 4px 0 4px 16px; }
-.source { font-size: 13px; color: var(--muted); }
-.thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
-.thumbs a { width: 110px; height: 110px; border-radius: 6px; overflow: hidden; border: 1px solid var(--rule); display: block; }
-.thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.r-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--rule); }
-.r-nav a { text-decoration: none; display: grid; gap: 2px; min-width: 0; }
-.r-nav a:last-child { text-align: right; }
-.r-nav span { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
-.r-nav b { font-family: var(--f-display); font-weight: 400; font-size: 24px; line-height: 1.1; }
-.statusbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 14px; border-radius: 8px; background: var(--soft); margin-bottom: 22px; }
-.statusbar .grow { margin-right: auto; }
-.confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 8px 12px; border-radius: 8px; background: var(--danger-soft); }
+.factor { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; padding-top: 8px; border-top: 1.5px dashed var(--rule-strong); flex-wrap: wrap; }
+.factor b { font: 700 1.625rem/1.1 var(--f-type); font-variant-numeric: tabular-nums; }
+.slip .muted { font-size: 0.8438rem; }
+.hint { font: italic 0.8438rem/1.45 var(--f-text); color: var(--muted); margin-top: 6px; }
+.r-lined .hint { line-height: var(--line); margin: 0; }
 
-/* Küche */
-.kitchen-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
-.kitchen-head h1 { font-family: var(--f-display); font-size: clamp(40px, 6vw, 60px); line-height: 1; }
-.kitchen-head p { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
-.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+/* Zutaten & Schritte auf den Linien */
+.ings h3, .r-method h3 { font: 700 0.8125rem/var(--line) var(--f-type); text-transform: uppercase; letter-spacing: .1em; color: var(--ch-text); }
+.ings ul { list-style: none; margin: 0; padding: 0; }
+.ing { display: grid; grid-template-columns: 5.25rem minmax(0, 1fr); gap: 12px; cursor: pointer; font: 1rem/var(--line) var(--f-type); }
+.ing .q { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ing .q.scaled { background: linear-gradient(transparent 52%, var(--hl) 52% 92%, transparent 92%); }
+.ing small { font: italic 0.875rem/1 var(--f-text); color: var(--muted); }
+.ing.done { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+.r-method ol { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+.r-method li { counter-increment: s; display: grid; grid-template-columns: 2.125rem minmax(0, 1fr); gap: 10px; cursor: pointer; font: 1.0625rem/var(--line) var(--f-text); max-width: 70ch; }
+.r-method li::before { content: counter(s) "."; font: 700 1rem/var(--line) var(--f-type); color: var(--line-red); text-align: right; }
+.r-method li.done { color: var(--muted); }
+.r-method li.done::before { content: "✓"; color: var(--ok); }
+.r-method h3 { margin-left: 2.75rem; }
+.tips { font: 1.0312rem/var(--line) var(--f-text); white-space: pre-wrap; max-width: 70ch; }
+.source { font: 0.875rem/var(--line) var(--f-type); color: var(--muted); }
+.thumbs { display: flex; gap: 10px; flex-wrap: wrap; padding-block: 6px; }
+.thumbs a { width: 110px; height: 110px; border-radius: 3px; overflow: hidden; display: block; box-shadow: var(--shadow-slip); }
+.thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.r-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 26px; font-family: var(--f-type); color: var(--table-ink); }
+.r-nav a { text-decoration: none; display: grid; gap: 3px; min-width: 0; }
+.r-nav a:last-child { text-align: right; }
+.r-nav span { font-size: 0.7812rem; text-transform: uppercase; letter-spacing: .1em; }
+.r-nav b { font-size: 1.125rem; line-height: 1.25; }
+.r-nav a:hover b { text-decoration: underline; text-underline-offset: 3px; }
+.r-up { display: flex; justify-content: center; gap: 10px; margin-top: 22px; font: 0.9375rem/1.3 var(--f-type); color: var(--table-ink); }
+.r-up a { text-underline-offset: 4px; padding: 6px 2px; }
+
+/* ---------- Daumenregister (breite Bildschirme) ---------- */
+.register { position: fixed; right: env(safe-area-inset-right, 0px); top: 50%; transform: translateY(-50%); display: none; flex-direction: column; gap: 4px; z-index: 4; }
+.register a { writing-mode: vertical-rl; background: color-mix(in oklab, var(--ch) 24%, var(--card)); color: var(--ink); box-shadow: -1px 1px 3px rgba(45, 30, 12, .28); font: 700 0.7812rem/1 var(--f-type); letter-spacing: .04em; padding: 12px 7px; border-radius: 7px 0 0 7px; text-decoration: none; max-height: min(150px, calc((100vh - 40px) / var(--n, 7) - 4px)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: padding .15s; }
+.register a:hover, .register a[aria-current="true"] { padding-right: 13px; }
+@media (min-width: 1200px) { .register.on { display: flex; } }
+
+/* ---------- Leere Zustände, Meldungen ---------- */
+.empty { max-width: 620px; margin: 44px auto 0; padding: 44px 22px; display: grid; gap: 12px; justify-items: center; text-align: center; background-color: var(--card); color: var(--ink); border-radius: 3px; box-shadow: var(--shadow-card); }
+.empty h2 { font: 700 1.625rem/1.2 var(--f-type); }
+.empty p { max-width: 46ch; margin: 0; color: var(--muted); font-family: var(--f-text); }
+.spinner { width: 18px; height: 18px; border: 3px solid var(--rule); border-top-color: var(--ink); border-radius: 50%; animation: spin 1s linear infinite; flex: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--card); padding: 10px 16px; border-radius: 3px; font: 700 0.9375rem/1.3 var(--f-type); z-index: 20; max-width: calc(100% - 32px); box-shadow: var(--shadow-lift); }
+.note { padding: 10px 14px; border-radius: 4px; background: var(--warn-soft); font-size: 0.875rem; color: var(--ink); }
+.note.err { background: var(--danger-soft); }
+.note.ok { background: var(--ok-soft); }
+.statusbar, .confirm { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 14px; border-radius: 3px; background: var(--card); color: var(--ink); box-shadow: var(--shadow-slip); margin-bottom: 18px; font-family: var(--f-ui); font-size: 0.875rem; }
+.statusbar .grow { margin-right: auto; }
+.confirm { background: var(--danger-soft); }
+
+/* ---------- Küche (Editor): ein schlichtes Blatt ---------- */
+body[data-view="kitchen"] #main { background-color: var(--card); color: var(--ink); box-shadow: var(--shadow-card); border-radius: 3px; padding-block: 28px 40px; margin-top: 18px; margin-bottom: 56px; font-family: var(--f-ui); font-size: 0.9375rem; }
+body[data-view="kitchen"] .empty { box-shadow: none; background: none; margin-top: 0; }
+.eyebrow { font: 700 0.75rem/1.3 var(--f-type); text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--rule-strong); background: var(--card); color: var(--ink); padding: 8px 14px; border-radius: 4px; cursor: pointer; font: 600 0.875rem/1.25 var(--f-ui); text-decoration: none; }
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--ink); border-color: var(--ink); color: var(--card); }
+.btn.go { background: var(--ok); border-color: var(--ok); color: var(--card); }
+.btn.ghost { background: transparent; border-color: transparent; }
+.btn.ghost:hover { background: var(--soft); }
+.btn.danger { color: var(--danger); }
+.btn.danger.solid { background: var(--danger); border-color: var(--danger); color: var(--card); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn.small { padding: 5px 10px; font-size: 0.8125rem; }
+.inp { background: var(--card); border: 1px solid var(--rule-strong); border-radius: 4px; padding: 9px 11px; width: 100%; min-width: 0; color: var(--ink); }
+.inp:focus { border-color: var(--ink); outline: none; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
 .pill.live { background: var(--ok-soft); color: var(--ok); }
 .pill.draft { background: var(--soft); color: var(--muted); }
 .pill.changed { background: var(--warn-soft); color: var(--warn); }
+.kitchen-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.kitchen-head h1 { font: 700 clamp(2.125rem, 5vw, 3rem)/1.05 var(--f-type); margin-top: 4px; }
+.kitchen-head p { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
 .ktable { width: 100%; border-collapse: collapse; }
-.ktable th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--rule-strong); }
+.ktable th { text-align: left; font: 700 0.6875rem/1.3 var(--f-type); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); padding: 8px 10px; border-bottom: 1.5px solid var(--rule-strong); }
 .ktable td { padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
-.ktable td.t a { font-family: var(--f-display); font-size: 22px; text-decoration: none; line-height: 1.1; }
+.ktable td.t a { font: 700 1.0625rem/1.25 var(--f-type); text-decoration: none; }
+.ktable td.t a:hover { text-decoration: underline; }
 .ktable td.act { text-align: right; white-space: nowrap; }
 .ktable .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--ch); margin-right: 6px; }
 .tablewrap { overflow-x: auto; }
-.panel { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; }
+.panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 16px; }
 .kgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin: 18px 0 26px; }
 .meter { height: 8px; background: var(--soft); border-radius: 99px; overflow: hidden; margin: 8px 0 4px; }
 .meter i { display: block; height: 100%; background: var(--ok); }
 .form { display: grid; gap: 18px; }
 .field { display: grid; gap: 6px; min-width: 0; }
-.field > span { font-weight: 700; font-size: 14px; }
-.field small { color: var(--muted); font-size: 12.5px; }
+.field > span { font-weight: 700; font-size: 0.875rem; }
+.field small { color: var(--muted); font-size: 0.7812rem; }
 textarea.inp { resize: vertical; line-height: 1.5; }
-textarea.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; }
+textarea.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.875rem; }
 .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
 .checks { display: flex; gap: 14px; flex-wrap: wrap; }
 .checks label { display: inline-flex; align-items: center; gap: 6px; }
-.edit-title { font-family: var(--f-display); font-size: clamp(36px, 5vw, 52px); line-height: 1; }
+.edit-title { font: 700 clamp(1.875rem, 5vw, 2.75rem)/1.05 var(--f-type); }
 .stepnav { display: flex; gap: 8px; margin: 14px 0 22px; flex-wrap: wrap; }
-.stepnav span { font-size: 13px; padding: 4px 12px; border-radius: 999px; background: var(--soft); color: var(--muted); font-weight: 700; }
-.stepnav span.on { background: var(--ink); color: var(--paper); }
+.stepnav span { font-size: 0.8125rem; padding: 4px 12px; border-radius: 999px; background: var(--soft); color: var(--muted); font-weight: 700; }
+.stepnav span.on { background: var(--ink); color: var(--card); }
 .srcgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
-.drop { border: 2px dashed var(--rule-strong); border-radius: 10px; padding: 22px; display: grid; gap: 10px; justify-items: center; text-align: center; background: var(--sheet); }
+.drop { border: 2px dashed var(--rule-strong); border-radius: 6px; padding: 22px; display: grid; gap: 10px; justify-items: center; text-align: center; background: var(--paper); }
 .drop.over { border-color: var(--ok); background: var(--ok-soft); }
 .drop p { margin: 0; color: var(--muted); }
 .photos { display: flex; gap: 12px; flex-wrap: wrap; }
-.photo { width: 150px; display: grid; gap: 6px; font-size: 13px; }
-.photo .th { width: 150px; height: 150px; border-radius: 8px; overflow: hidden; border: 1px solid var(--rule); background: var(--soft); }
+.photo { width: 150px; display: grid; gap: 6px; font-size: 0.8125rem; }
+.photo .th { width: 150px; height: 150px; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); background: var(--soft); }
 .photo .th img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .photo label { display: flex; align-items: center; gap: 6px; }
 .photo.cover .th { outline: 3px solid var(--ok); outline-offset: 2px; }
 .pending { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .warns { margin: 0; padding-left: 20px; }
-.sticky-save { position: sticky; bottom: 0; background: var(--paper); padding-block: 12px calc(12px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--rule); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; z-index: 3; }
-.foot { margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; }
+.sticky-save { position: sticky; bottom: 0; background: var(--card); padding-block: 12px calc(12px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--rule); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; z-index: 3; }
 
 @media (max-width: 860px) {
-  .r-head { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-  .r-photo { order: -1; aspect-ratio: 4 / 3; }
-  .r-body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .r-side { position: static; max-height: none; overflow: visible; padding-right: 0; }
+  .r-head.haspic { grid-template-columns: minmax(0, 1fr); }
+  .r-photo { order: -1; justify-self: center; width: min(100%, 300px); margin: 6px 0 10px; }
+  .r-body { grid-template-columns: minmax(0, 1fr); }
   .srcgrid, .kgrid { grid-template-columns: minmax(0, 1fr); }
   .ktable .hide-s { display: none; }
 }
 @media (max-width: 520px) {
-  .nav a { padding: 6px 7px; font-size: 13px; }
-  .mark { font-size: 21px; }
-  .ing { grid-template-columns: 76px minmax(0, 1fr); }
-  .r-method li { grid-template-columns: 34px minmax(0, 1fr); font-size: 17px; gap: 10px; }
-  .r-method li::before { font-size: 32px; }
-  .r-method h3 { margin-left: 44px; }
-  .opener { grid-template-columns: minmax(0, 1fr); }
-  .r-nav b { font-size: 19px; }
+  :root { --line: 1.75rem; }
+  .nav { gap: 14px; }
+  .nav a { font-size: 0.875rem; }
+  .mark { font-size: 1.1875rem; }
+  .titlecard { margin-top: 42px; }
+  .tc-lines { font-size: 0.9688rem; }
+  .r-lined, .titlecard { --line: 2rem; }
+  .ing { grid-template-columns: 4.625rem minmax(0, 1fr); gap: 10px; font-size: 1.0312rem; }
+  .r-method li { grid-template-columns: 1.625rem minmax(0, 1fr); gap: 8px; font-size: 1.0938rem; }
+  .stepper button { width: 44px; height: 44px; }
+  .stepper .inp { height: 44px; }
+  .seg button { padding: 8px 10px; }
+  .r-method h3 { margin-left: 2.125rem; }
+  .facts .f { margin-right: 16px; }
+  .slip { transform: none; padding-inline: 12px; }
+  .slip-h { font-size: 0.75rem; letter-spacing: .05em; }
+  .slip-sum { font-size: 0.8125rem; }
+  .r-nav b { font-size: 1rem; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  .window, .sway { animation: none !important; }
+  * { transition: none !important; }
+}
+
+/* ---------- Systemeinstellungen (Apple HIG: Textgröße, Kontrast, Transparenz) ---------- */
+/* iPhone/iPad: Grundschrift folgt der Textgröße aus den Einstellungen (Dynamic Type); alle Schriften und Linien sind in rem. */
+@supports (font: -apple-system-body) and (-webkit-touch-callout: none) { html { font: -apple-system-body; } }
+@media (prefers-contrast: more) {
+  :root { --muted: #45413B; --line-blue: #7FA3C8; --shade: rgba(26, 42, 28, .12); --leaf: rgba(22, 38, 24, .16); }
+  .leit-card { --muted: #3A3732; }
+  .stamp { border-width: 2.5px; }
+}
+@media (prefers-reduced-transparency: reduce) { .window, .branch { display: none; } }
+.nav a, .crumbs a, .r-up a, .tbtn, .linkbtn, .tc-hits { position: relative; }
+.nav a::after, .crumbs a::after, .r-up a::after, .tbtn::after, .linkbtn::after, .tc-hits::after { content: ""; position: absolute; inset: -11px -6px; }
+.leit li a { padding-block: 8px; }
+.slip summary { min-height: 36px; padding-block: 6px; }
+.mark { padding-block: 8px; }
 </style>
 <div id="app"></div>
 <script type="application/json" id="kk-data">{"site":{"title":"Küchenkartei","subtitle":"Gesammelte Rezepte von Felix","intro":""},"publishedAt":"2026-11-23T18:05:39.371Z","recipes":[{"category":"Kuchen & Gebäck","cookMinutes":40,"createdAt":"2026-11-19T10:00:00.000Z","description":"Saftiger Rührteig mit eingesunkenen Apfelspalten, ein Klassiker für die Springform.","diet":["vegetarisch"],"difficulty":"einfach","example":true,"id":"bspapfelkuchen","ingredientGroups":[{"items":[{"name":"Butter","note":"zimmerwarm","qty":125,"qtyMax":null,"unit":"g"},{"name":"Zucker","note":"","qty":125,"qtyMax":null,"unit":"g"},{"name":"Vanillezucker","note":"","qty":1,"qtyMax":null,"unit":"Pck."},{"name":"Eier","note":"Größe M","qty":3,"qtyMax":null,"unit":""},{"name":"Weizenmehl Type 405","note":"","qty":200,"qtyMax":null,"unit":"g"},{"name":"Backpulver","note":"","qty":2,"qtyMax":null,"unit":"TL"},{"name":"Milch","note":"","qty":3,"qtyMax":null,"unit":"EL"},{"name":"Salz","note":"1 Prise","qty":null,"qtyMax":null,"unit":""}],"name":"Für den Teig"},{"items":[{"name":"Äpfel","note":"säuerlich, z. B. Boskop","qty":4,"qtyMax":null,"unit":""},{"name":"Zitronensaft","note":"","qty":1,"qtyMax":null,"unit":"EL"},{"name":"Puderzucker","note":"zum Bestäuben","qty":2,"qtyMax":null,"unit":"EL"}],"name":"Für den Belag"}],"pan":{"diameter":26,"shape":"rund"},"prepMinutes":25,"restMinutes":null,"servings":12,"servingsUnit":"Stück","source":"Beispiel","steps":[{"section":"","text":"Den Backofen auf 180 °C Ober-/Unterhitze vorheizen und die Springform fetten."},{"section":"","text":"Äpfel schälen, vierteln, entkernen und die Rückseite mehrmals längs einschneiden. Mit Zitronensaft beträufeln."},{"section":"","text":"Butter, Zucker, Vanillezucker und Salz cremig rühren. Die Eier einzeln unterrühren."},{"section":"","text":"Mehl und Backpulver mischen und abwechselnd mit der Milch kurz unterrühren."},{"section":"","text":"Teig in die Form streichen und die Apfelviertel mit der eingeschnittenen Seite nach oben leicht hineindrücken."},{"section":"","text":"Etwa 40 Minuten backen, Stäbchenprobe machen. Abkühlen lassen und mit Puderzucker bestäuben."}],"tags":["Äpfel","Rührteig","Kaffeetafel","Herbst"],"tips":"Beispielrezept zum Ausprobieren des Mengenrechners – im Reiter „Backform“ z. B. auf Ø 28 cm oder ein Blech umrechnen. Kann jederzeit gelöscht werden.","title":"Versunkener Apfelkuchen","updatedAt":"2026-11-19T10:00:00.000Z"},{"category":"Suppen & Eintöpfe","cookMinutes":45,"createdAt":"2026-11-19T09:59:00.000Z","description":"Deftiger Eintopf mit Tellerlinsen, Gemüse und einem Schuss Essig zum Schluss.","diet":[],"difficulty":"einfach","example":true,"id":"bsplinsensuppe","ingredientGroups":[{"items":[{"name":"Tellerlinsen","note":"getrocknet","qty":250,"qtyMax":null,"unit":"g"},{"name":"Zwiebel","note":"gewürfelt","qty":1,"qtyMax":null,"unit":""},{"name":"Möhren","note":"gewürfelt","qty":2,"qtyMax":null,"unit":""},{"name":"Knollensellerie","note":"gewürfelt","qty":150,"qtyMax":null,"unit":"g"},{"name":"Kartoffeln","note":"mehligkochend, gewürfelt","qty":3,"qtyMax":null,"unit":""},{"name":"Gemüsebrühe","note":"","qty":1.2,"qtyMax":null,"unit":"l"},{"name":"Lorbeerblatt","note":"","qty":1,"qtyMax":null,"unit":""},{"name":"Wiener Würstchen","note":"in Scheiben","qty":4,"qtyMax":null,"unit":""},{"name":"Rotweinessig","note":"","qty":2,"qtyMax":3,"unit":"EL"},{"name":"Öl","note":"","qty":1,"qtyMax":null,"unit":"EL"},{"name":"Salz und Pfeffer","note":"nach Geschmack","qty":null,"qtyMax":null,"unit":""}],"name":""}],"pan":null,"prepMinutes":20,"restMinutes":null,"servings":4,"servingsUnit":"Portionen","source":"Beispiel","steps":[{"section":"","text":"Zwiebel im Öl in einem großen Topf glasig anschwitzen."},{"section":"","text":"Möhren und Sellerie zugeben und 3 Minuten mitbraten."},{"section":"","text":"Linsen, Kartoffeln, Lorbeerblatt und Brühe zugeben, aufkochen und zugedeckt etwa 40 Minuten köcheln lassen, bis die Linsen weich sind."},{"section":"","text":"Würstchen in die Suppe geben und 5 Minuten darin erwärmen."},{"section":"","text":"Lorbeerblatt entfernen, mit Essig, Salz und Pfeffer abschmecken."}],"tags":["Linsen","Eintopf","Hausmannskost","Meal Prep"],"tips":"Beispielrezept – im Mengenrechner „Nach Zutat“ z. B. angeben, dass nur 400 g Linsen da sind. Kann jederzeit gelöscht werden.","title":"Linsensuppe mit Würstchen","updatedAt":"2026-11-19T09:59:00.000Z"},{"category":"Kuchen & Gebäck","cookMinutes":12,"createdAt":"2026-11-19T22:15:10.402Z","description":"Klassische Plätzchen aus Mürbeteig mit Butter, Zucker und Eiern.","diet":["vegetarisch"],"difficulty":"einfach","example":false,"id":"rmwo3z48yqy9j9","ingredientGroups":[{"name":"","items":[{"qty":470,"qtyMax":null,"unit":"g","name":"Weizenmehl Type 405","note":""},{"qty":170,"qtyMax":null,"unit":"g","name":"Zucker","note":""},{"qty":235,"qtyMax":null,"unit":"g","name":"Butter","note":"kalt"},{"qty":2,"qtyMax":null,"unit":"","name":"Eier","note":"mittelgroß"}]}],"pan":null,"prepMinutes":null,"restMinutes":null,"servings":85,"servingsUnit":"Stück","source":"","steps":[{"text":"Mehl, Zucker, die kalte Butter und die Eier zu einem glatten Teig verkneten.","section":""},{"text":"Teig kalt stellen eingewickelt in Folie (ca. 30-60min).","section":""},{"text":"Den Teig ausrollen und die Plätzchen ausstechen.","section":""},{"text":"Die Plätzchen auf ein Backblech legen.","section":""},{"text":"Die Plätzchen bei 175 °C Ober-/Unterhitze 10 bis 12 Minuten backen.","section":""}],"tags":["Plätzchen","Mürbeteig","Weihnachtsgebäck","Backen"],"tips":"","title":"Butter-Plätzchen","updatedAt":"2026-11-19T22:16:50.812Z"},{"title":"Brot mit weichem Rand (Milch)","description":"Brot mit Biga und Sauerteig, mit Milch im Teig für einen weichen Rand. Im Topf mit Deckel gebacken.","category":"Brot & Brötchen","tags":["Brot","Biga","Sauerteig","Milchbrot","Backen mit Deckel"],"diet":["vegetarisch"],"servings":1,"servingsUnit":"Brote","prepMinutes":null,"cookMinutes":50,"restMinutes":null,"difficulty":"mittel","pan":null,"ingredientGroups":[{"name":"Biga","items":[{"qty":1,"qtyMax":null,"unit":"g","name":"Hefe","note":""},{"qty":150,"qtyMax":null,"unit":"g","name":"Weizenmehl","note":"Type laut Vorlage nicht angegeben"},{"qty":100,"qtyMax":null,"unit":"g","name":"Wasser","note":""}]},{"name":"Teig","items":[{"qty":60,"qtyMax":null,"unit":"g","name":"Sauerteig","note":""},{"qty":250,"qtyMax":null,"unit":"g","name":"Biga","note":"von oben"},{"qty":450,"qtyMax":null,"unit":"g","name":"Weizenmehl","note":"Type laut Vorlage nicht angegeben"},{"qty":150,"qtyMax":null,"unit":"g","name":"Milch","note":""},{"qty":150,"qtyMax":null,"unit":"g","name":"Wasser","note":""},{"qty":30,"qtyMax":null,"unit":"g","name":"Öl","note":""},{"qty":15,"qtyMax":null,"unit":"g","name":"Salz","note":""}]}],"steps":[{"text":"Hefe, Mehl und Wasser für die Biga verrühren.","section":"Biga"},{"text":"Die Biga ruhen lassen, bis sie reif ist für ca. 8-10h","section":"Biga"},{"text":"Sauerteig, 250 g Biga, Mehl, Milch, Wasser, Öl und Salz zu einem Teig verarbeiten.","section":"Teig"},{"text":"Den Teig formen und in einem Topf mit Deckel bei 220 °C 35 Minuten backen.","section":"Backen"},{"text":"Den Deckel abnehmen und das Brot bei 210 °C weitere 10 bis 15 Minuten backen.","section":"Backen"},{"text":"Das Brot nach dem Backen mit einem Tuch bedecken.","section":"Backen"}],"tips":"Das Brot nach dem Backen mit einem Tuch bedecken, damit der Rand weich bleibt.","source":"","id":"rmwo4km6b98e3t","createdAt":"2026-11-19T22:31:53.411Z","updatedAt":"2026-11-19T22:31:53.411Z","example":false},{"title":"Braune Sojasoße","description":"Eine würzig-süße braune Sojasoße mit Mirin, Reisessig, Butter und geröstetem Sesamöl.","category":"Saucen, Dips & Dressings","tags":["Sojasoße","Asiatisch","Mirin","Sesamöl"],"diet":["vegetarisch"],"servings":2,"servingsUnit":"Portionen","prepMinutes":null,"cookMinutes":null,"restMinutes":null,"difficulty":"einfach","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":3,"qtyMax":null,"unit":"EL","name":"Dunkle Sojasoße","note":""},{"qty":3,"qtyMax":null,"unit":"EL","name":"Mirin","note":""},{"qty":1,"qtyMax":null,"unit":"TL","name":"Reisessig","note":""},{"qty":1,"qtyMax":null,"unit":"EL","name":"Butter","note":""},{"qty":0.5,"qtyMax":null,"unit":"TL","name":"Geröstetes Sesamöl","note":""}]}],"steps":[],"tips":"","source":"","id":"rmwo4m13gzmrkv","createdAt":"2026-11-19T22:32:59.404Z","updatedAt":"2026-11-19T22:32:59.404Z","example":false},{"title":"Zucchini-Marinade mit Miso","description":"Würzige Marinade mit hellem Shiro-Miso, Olivenöl, Senf, Knoblauch und Thymian für ca. 200 g Zucchinibänder.","category":"Saucen, Dips & Dressings","tags":["Zucchini","Marinade","Miso","Knoblauch","Thymian"],"diet":["vegetarisch","laktosefrei"],"servings":1,"servingsUnit":"Portionen","prepMinutes":null,"cookMinutes":null,"restMinutes":null,"difficulty":"einfach","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":1,"qtyMax":null,"unit":"TL","name":"Shiro-Miso","note":"hell, gehäuft, ca. 8 g"},{"qty":3,"qtyMax":null,"unit":"EL","name":"Olivenöl","note":""},{"qty":0.5,"qtyMax":null,"unit":"TL","name":"Senf","note":"Ikea-Senf"},{"qty":1,"qtyMax":null,"unit":"Zehe","name":"Knoblauch","note":"kleine Zehe, sehr fein gehackt"},{"qty":0.5,"qtyMax":null,"unit":"TL","name":"Thymianblättchen","note":"getrocknet"},{"qty":1,"qtyMax":null,"unit":"Schuss","name":"Heller Balsamico","note":"Menge nach Gefühl"}]}],"steps":[{"text":"Shiro-Miso, Olivenöl und Senf in einer Schüssel glatt verrühren.","section":""},{"text":"Den sehr fein gehackten Knoblauch, den getrockneten Thymian und einen Schuss hellen Balsamico unterrühren.","section":""},{"text":"Ca. 200 g gesalzene und trockengetupfte Zucchinibänder mit der Marinade vermengen.","section":""},{"text":"Nicht zusätzlich salzen, da das Miso bereits ausreichend Salz liefert.","section":""}],"tips":"Kein zusätzliches Salz in die Marinade geben, das Miso deckt das ab. Die Zucchinibänder vorher salzen und trockentupfen.","source":"","id":"rmwo4nbbdzk6oa","createdAt":"2026-11-19T22:33:59.305Z","updatedAt":"2026-11-19T22:33:59.305Z","example":false},{"title":"Gyros in Metaxa","description":"Überbackenes Gyros-Geschirr aus Pute oder Schwein in cremiger Metaxa-Sahnesauce mit Paprika und Champignons, mit Gouda gratiniert.","category":"Hauptgerichte","tags":["Gyros","Überbacken","Sahnesauce","Griechisch","Fleisch","Ofengericht"],"diet":[],"servings":4,"servingsUnit":"Portionen","prepMinutes":null,"cookMinutes":60,"restMinutes":120,"difficulty":"mittel","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":500,"qtyMax":null,"unit":"g","name":"Putenfleisch oder Schweinefleisch","note":"in kleine Streifen geschnitten"},{"qty":null,"qtyMax":null,"unit":"","name":"Salz","note":"nach Geschmack"},{"qty":null,"qtyMax":null,"unit":"","name":"Pfeffer","note":"nach Geschmack"},{"qty":1,"qtyMax":null,"unit":"EL","name":"Paprikapulver edelsüß","note":""},{"qty":4,"qtyMax":5,"unit":"EL","name":"Gyrosgewürz","note":""},{"qty":null,"qtyMax":null,"unit":"","name":"Olivenöl","note":"reichlich"},{"qty":1,"qtyMax":null,"unit":"","name":"Gemüsezwiebel","note":""},{"qty":2,"qtyMax":null,"unit":"Zehe","name":"Knoblauch","note":"dicke Zehen"},{"qty":1,"qtyMax":null,"unit":"","name":"Paprikaschote rot","note":""},{"qty":350,"qtyMax":null,"unit":"g","name":"Champignons","note":""},{"qty":1,"qtyMax":null,"unit":"EL","name":"Weizenmehl","note":""},{"qty":6,"qtyMax":null,"unit":"EL","name":"Tomatenmark","note":""},{"qty":6,"qtyMax":null,"unit":"EL","name":"Metaxa","note":""},{"qty":400,"qtyMax":null,"unit":"g","name":"Sahne","note":""},{"qty":200,"qtyMax":null,"unit":"g","name":"Schmand","note":""},{"qty":1,"qtyMax":null,"unit":"Prise","name":"Zucker","note":""},{"qty":200,"qtyMax":null,"unit":"g","name":"Gouda","note":"gerieben"}]}],"steps":[{"text":"Das Fleisch in kleine Streifen schneiden.","section":"Marinieren"},{"text":"Das Fleisch mit Zwiebel, Knoblauch, Olivenöl, Salz, Pfeffer, Paprikapulver und Gyrosgewürz vermengen und etwa 2 Stunden einlegen.","section":"Marinieren"},{"text":"Das marinierte Fleisch mit Zwiebel und Knoblauch in einer Pfanne anbraten.","section":"Zubereitung"},{"text":"Paprika und Champignons hinzufügen und etwas einkochen lassen.","section":"Zubereitung"},{"text":"Das Mehl darüberstäuben und vorsichtig umrühren, bis sich die Flüssigkeit bindet.","section":"Zubereitung"},{"text":"Das Tomatenmark hinzufügen.","section":"Zubereitung"},{"text":"Mit dem Metaxa ablöschen und kurz verkochen lassen.","section":"Zubereitung"},{"text":"Sahne und Schmand einrühren und mit einer Prise Zucker abschmecken.","section":"Zubereitung"},{"text":"Die Masse 20 bis 25 Minuten leicht offen köcheln lassen und dabei immer wieder umrühren.","section":"Zubereitung"},{"text":"Alles in eine ofenfeste Form füllen und mit dem geriebenen Gouda bestreuen.","section":"Überbacken"},{"text":"Bei 200 °C 10 bis 15 Minuten im Ofen überbacken, bis der Käse schön zerlaufen ist.","section":"Überbacken"}],"tips":"","source":"","id":"rmwo4pifcv5vb4","createdAt":"2026-11-19T22:35:41.832Z","updatedAt":"2026-11-19T22:35:41.832Z","example":false},{"title":"Jackfrucht-„Ente“ (Pulled Jackfruit)","description":"Saftig geschmorte, gezupfte Jackfrucht mit Majoran, Beifuß und Orange – der vegane Weihnachtsenten-Belag für Pizza, gut vorzubereiten.","category":"Pasta & Pizza","tags":["Jackfrucht","Pizzabelag","Weihnachten","Pulled","Meal Prep","Weihnachtsmarkt"],"diet":["vegan","vegetarisch","laktosefrei"],"servings":5,"servingsUnit":"Pizzen","prepMinutes":15,"cookMinutes":40,"restMinutes":null,"difficulty":"einfach","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":2,"qtyMax":null,"unit":"Dose","name":"Junge grüne Jackfrucht","note":"in Salzlake, nicht in Sirup (ca. 400 g)"},{"qty":2,"qtyMax":null,"unit":"EL","name":"Öl","note":""},{"qty":1,"qtyMax":null,"unit":"","name":"Zwiebel","note":"fein gewürfelt"},{"qty":1,"qtyMax":null,"unit":"TL","name":"Majoran","note":"getrocknet"},{"qty":0.5,"qtyMax":null,"unit":"TL","name":"Beifuß","note":"getrocknet"},{"qty":0.5,"qtyMax":null,"unit":"TL","name":"Paprikapulver","note":"geräuchert"},{"qty":1,"qtyMax":null,"unit":"Prise","name":"Zimt","note":""},{"qty":2,"qtyMax":null,"unit":"","name":"Pimentkörner","note":""},{"qty":1,"qtyMax":null,"unit":"","name":"Lorbeerblatt","note":""},{"qty":1,"qtyMax":null,"unit":"","name":"Orange","note":"Bio, Abrieb und Saft"},{"qty":100,"qtyMax":null,"unit":"ml","name":"Rotwein","note":"vegan, alternativ Gemüsebrühe"},{"qty":2,"qtyMax":null,"unit":"EL","name":"Sojasauce","note":""},{"qty":1,"qtyMax":null,"unit":"EL","name":"Rübensirup","note":"oder Ahornsirup"},{"qty":1,"qtyMax":null,"unit":"EL","name":"Tomatenmark","note":""},{"qty":null,"qtyMax":null,"unit":"","name":"Salz und Pfeffer","note":"nach Geschmack"}]}],"steps":[{"text":"Jackfrucht abtropfen lassen, kurz abspülen und gut ausdrücken. Harte Kernstücke abschneiden und die Jackfrucht mit den Fingern grob zerzupfen.","section":"Schmoren"},{"text":"Zwiebel im Öl glasig dünsten, Jackfrucht dazugeben und 5 Minuten kräftig anbraten.","section":"Schmoren"},{"text":"Tomatenmark und alle trockenen Gewürze dazugeben und kurz mitrösten.","section":"Schmoren"},{"text":"Mit Rotwein, Orangensaft, Sojasauce und Rübensirup ablöschen und den Orangenabrieb dazugeben.","section":"Schmoren"},{"text":"Zugedeckt bei mittlerer Hitze 20 bis 30 Minuten schmoren, gelegentlich umrühren.","section":"Schmoren"},{"text":"Deckel abnehmen und einkochen, bis die Flüssigkeit glänzend an der Jackfrucht klebt und nichts mehr tropft. Piment und Lorbeerblatt entfernen.","section":"Fertigstellen"},{"text":"Mit zwei Gabeln fertig zerzupfen und mit Salz und Pfeffer abschmecken.","section":"Fertigstellen"},{"text":"Optional kurz in einer heißen Pfanne anbraten, damit ein paar Ränder Röstaromen bekommen.","section":"Fertigstellen"}],"tips":"Haltbarkeit: gekühlt 4–5 Tage, eingefroren ca. 3 Monate. Portioniert in GN-Behältern lagern.\nAuf der Pizza direkt aus dem Behälter auflegen, kein Vorbacken nötig. Pro Pizza ca. 80–90 g.\nPizza „Weihnachtsente“: Knoblauch-Majoran-Öl als Basis, Mozzarella oder veganer Käse, ausgedrückter Apfelrotkohl, Jackfrucht. Nach dem Backen Bratenjus-Orangen-Glaze, Panko-Crunch, Orangenabrieb und frischer Majoran.\nBei großen Chargen die Gewürze mit ca. 80 % der hochgerechneten Menge starten und abschmecken.","source":"","id":"rjackfruchtente","createdAt":"2026-11-21T22:10:00.000Z","updatedAt":"2026-11-21T22:10:00.000Z","example":false},{"title":"Birnen-Coulis für die Spritzflasche","description":"Feines Birnenpüree aus Dosenbirnen mit weißem Balsamico und Pfeffer – passt herzhaft zu Gorgonzola und süß zur Schoko-Birnen-Pizza. Einfrierbar.","category":"Saucen, Dips & Dressings","tags":["Birne","Coulis","Spritzflasche","Pizza","Einfrieren","Weihnachtsmarkt"],"diet":["vegan","vegetarisch","glutenfrei","laktosefrei"],"servings":750,"servingsUnit":"ml","prepMinutes":10,"cookMinutes":30,"restMinutes":null,"difficulty":"einfach","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":1000,"qtyMax":null,"unit":"g","name":"Birnen aus der Dose","note":"abgetropft, Sirup auffangen"},{"qty":175,"qtyMax":null,"unit":"ml","name":"Dosensirup","note":"von den Birnen"},{"qty":20,"qtyMax":null,"unit":"ml","name":"Zitronensaft","note":""},{"qty":40,"qtyMax":null,"unit":"ml","name":"Weißer süßer Balsamico","note":"erst nach dem Einkochen"},{"qty":1,"qtyMax":null,"unit":"Prise","name":"Salz","note":""},{"qty":1,"qtyMax":null,"unit":"Prise","name":"Schwarzer Pfeffer","note":"kräftig, frisch gemahlen"},{"qty":null,"qtyMax":null,"unit":"","name":"Zucker","note":"nur bei Bedarf, am Ende abschmecken"},{"qty":15,"qtyMax":null,"unit":"ml","name":"Williams-Birnenbrand","note":"optional"},{"qty":1.5,"qtyMax":null,"unit":"g","name":"Xanthan","note":"optional, zum Andicken"}]}],"steps":[{"text":"Birnen abtropfen lassen und den Sirup auffangen.","section":"Kochen"},{"text":"Birnen mit Dosensirup, Zitronensaft und Salz 10 bis 15 Minuten weich kochen.","section":"Kochen"},{"text":"Sehr fein pürieren und durch ein Sieb streichen, damit die Tülle der Spritzflasche nicht verstopft.","section":"Kochen"},{"text":"Einkochen, bis die Masse langsam vom Löffel läuft, etwa wie dicker Sirup. Dosenbirnen brauchen dafür etwas länger.","section":"Kochen"},{"text":"Vom Herd nehmen, weißen Balsamico, Pfeffer und optional Birnenbrand einrühren und abschmecken.","section":"Fertigstellen"},{"text":"Optional mit Xanthan nachdicken und mit dem Stabmixer einarbeiten. Keine Speisestärke verwenden, sie wird nach dem Auftauen wässrig.","section":"Fertigstellen"}],"tips":"Einfrieren: abgekühlt flach in Gefrierbeuteln à 500 ml portionieren, hält 3–6 Monate. Über Nacht im Kühlschrank auftauen, durchrühren, Ecke abschneiden und in die Spritzflasche füllen. Aufgetaut 4–5 Tage haltbar.\nAm Stand wird das Coulis bei Kälte dicker: Flasche nah am Ofen lagern oder mit einem Schluck Wasser verdünnen.\nEinsatz: herzhaft auf Birne–Gorgonzola–Walnuss mit frischem Thymian, süß auf der Schoko-Birnen-Pizza nach dem Backen.\nMit frischen Birnen: 1 kg reife Williams-Birnen, 200 ml Apfelsaft statt Dosensirup und ca. 80 g Zucker.\nRestlichen Dosensirup auf ein Drittel einkochen: ergibt einen Birnensirup als Honig-Ersatz, ebenfalls einfrierbar.","source":"","id":"rbirnencoulis","createdAt":"2026-11-21T22:10:00.000Z","updatedAt":"2026-11-21T22:10:00.000Z","example":false},{"title":"Aioli Vegane Knoblauchmayo","description":"Schnelle Knoblauchsauce aus Öl und Milch, die mit dem Stabmixer zubereitet wird.","category":"Saucen, Dips & Dressings","tags":["Knoblauch","Mayo","Stabmixer","Grillen","Dip"],"diet":["vegetarisch"],"servings":4,"servingsUnit":"Portionen","prepMinutes":null,"cookMinutes":null,"restMinutes":null,"difficulty":"einfach","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":200,"qtyMax":null,"unit":"ml","name":"Öl","note":"neutrales Öl; Sorte nicht angegeben"},{"qty":60,"qtyMax":null,"unit":"ml","name":"Milch","note":""},{"qty":1,"qtyMax":2,"unit":"Zehe","name":"Knoblauch","note":"geschält, grob klein geschnitten"},{"qty":0.5,"qtyMax":null,"unit":"Stück","name":"Zitrone","note":"Saft zum Abschmecken"},{"qty":1,"qtyMax":null,"unit":"Prise","name":"Salz","note":""}]}],"steps":[{"text":"Den Knoblauch schälen und grob klein schneiden.","section":""},{"text":"Den Knoblauch mit der Milch in ein hohes Gefäß geben, in das ein Stabmixer gut hineinpasst.","section":""},{"text":"Knoblauch und Milch mit einer Prise Salz gründlich mixen.","section":""},{"text":"Das Öl in einem dünnen Strahl hinzugeben und dabei mixen, bis die gewünschte Konsistenz erreicht ist.","section":""},{"text":"Die Sauce mit Zitronensaft abschmecken und servieren.","section":""}],"tips":"","source":"brot.mit.ei","id":"rmwtkih7mmj2ls","createdAt":"2026-11-23T17:56:58.402Z","updatedAt":"2026-11-23T17:56:58.402Z","example":false},{"title":"Braune Soße","description":"Einfache braune Soße auf Basis von Rinderbrühe, mit Tomatenmark und Sojasoße abgeschmeckt.","category":"Saucen, Dips & Dressings","tags":["Soße","Bratensoße","Rinderbrühe","Beilage zu Fleisch"],"diet":[],"servings":4,"servingsUnit":"Portionen","prepMinutes":null,"cookMinutes":null,"restMinutes":null,"difficulty":"einfach","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":400,"qtyMax":null,"unit":"ml","name":"Rinderbrühe","note":""},{"qty":3,"qtyMax":null,"unit":"EL","name":"Butter","note":""},{"qty":2,"qtyMax":null,"unit":"EL","name":"Weizenmehl Type 405","note":"gehäuft"},{"qty":null,"qtyMax":null,"unit":"","name":"Spritzer Öl","note":"ein paar Spritzer, genaue Menge nicht angegeben"},{"qty":0.5,"qtyMax":null,"unit":"EL","name":"Tomatenmark","note":""},{"qty":3,"qtyMax":null,"unit":"EL","name":"Sojasoße","note":""},{"qty":50,"qtyMax":100,"unit":"ml","name":"Gemüsebrühe","note":"zum Schluss aufgießen, um die gewünschte Konsistenz zu erreichen"}]}],"steps":[{"text":"Die Butter mit ein paar Spritzern Öl in einem Topf erhitzen.","section":""},{"text":"Das Mehl in die Butter geben und unter Rühren anschwitzen.","section":""},{"text":"Das Tomatenmark hinzufügen und kurz mit anrösten.","section":""},{"text":"Die Rinderbrühe nach und nach unter Rühren aufgießen.","section":""},{"text":"Die Sojasoße einrühren.","section":""},{"text":"Die Soße unter Rühren aufkochen lassen.","section":""},{"text":"Zum Schluss nach Bedarf 50 bis 100 ml Gemüsebrühe aufgießen, bis die gewünschte Konsistenz erreicht ist.","section":""}],"tips":"Die Konsistenz lässt sich zum Schluss mit Gemüsebrühe einstellen.","source":"","id":"rmwtknf0u476vx","createdAt":"2026-11-23T18:00:48.846Z","updatedAt":"2026-11-23T18:00:48.846Z","example":false},{"title":"Chili sin Carne","description":"Vegetarisches Chili mit roten Linsen, Kartoffeln, Süßkartoffel, Kidneybohnen und Mais in würziger Tomatensauce.","category":"Suppen & Eintöpfe","tags":["Linsen","Süßkartoffel","Mexikanisch","Eintopf","Kidneybohnen"],"diet":["vegetarisch","vegan","laktosefrei"],"servings":4,"servingsUnit":"Portionen","prepMinutes":null,"cookMinutes":null,"restMinutes":null,"difficulty":"einfach","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":2,"qtyMax":null,"unit":"","name":"Zwiebeln","note":""},{"qty":2,"qtyMax":null,"unit":"Zehe","name":"Knoblauch","note":""},{"qty":3,"qtyMax":5,"unit":"","name":"Kartoffeln","note":"mittelgroß"},{"qty":270,"qtyMax":null,"unit":"g","name":"Rote Linsen","note":""},{"qty":1,"qtyMax":null,"unit":"","name":"Paprika","note":""},{"qty":1,"qtyMax":null,"unit":"","name":"Süßkartoffel","note":""},{"qty":1.25,"qtyMax":null,"unit":"l","name":"Gemüsebrühe","note":""},{"qty":1,"qtyMax":null,"unit":"Dose","name":"Kidneybohnen","note":""},{"qty":1,"qtyMax":null,"unit":"Dose","name":"Mais","note":""},{"qty":500,"qtyMax":null,"unit":"ml","name":"Passierte Tomaten","note":""},{"qty":2,"qtyMax":null,"unit":"EL","name":"Tomatenmark","note":""},{"qty":null,"qtyMax":null,"unit":"","name":"Salz","note":"wenig"},{"qty":null,"qtyMax":null,"unit":"","name":"Pfeffer","note":"wenig"},{"qty":1,"qtyMax":null,"unit":"EL","name":"Paprikapulver","note":"gehäuft"},{"qty":1,"qtyMax":null,"unit":"TL","name":"Currypulver","note":""},{"qty":1,"qtyMax":null,"unit":"TL","name":"Magic Dust","note":"Gewürzmischung"},{"qty":3,"qtyMax":4,"unit":"TL","name":"Mexiko-Gewürz","note":"Gewürzmischung"}]}],"steps":[{"text":"Zwiebeln und Knoblauch schälen und fein würfeln.","section":""},{"text":"Kartoffeln, Süßkartoffel und Paprika waschen bzw. schälen und in mundgerechte Stücke schneiden.","section":""},{"text":"Kidneybohnen und Mais in einem Sieb abtropfen lassen.","section":""},{"text":"Zwiebeln, Knoblauch und Tomatenmark in einem großen Topf anbraten.","section":""},{"text":"Gemüsebrühe, passierte Tomaten und rote Linsen in den Topf geben.","section":""},{"text":"Kartoffeln, Süßkartoffel und Paprika hinzufügen.","section":""},{"text":"Mit Salz, Pfeffer, Paprikapulver, Currypulver, Magic Dust und Mexiko-Gewürz würzen.","section":""},{"text":"Das Chili köcheln lassen, bis Kartoffeln und Linsen gar sind.","section":""},{"text":"Kidneybohnen und Mais unterrühren und kurz miterhitzen.","section":""},{"text":"Das Chili abschmecken und servieren.","section":""}],"tips":"","source":"","id":"rmwtkohl1ab4gx","createdAt":"2026-11-23T18:01:38.821Z","updatedAt":"2026-11-23T18:01:38.821Z","example":false},{"title":"Couscous-Salat","description":"Orientalisch gewürzter Couscous-Salat mit Paprika, Zucchini und frischer Minze.","category":"Salate","tags":["Couscous","Orientalisch","Sommer","Beilage","Kalt"],"diet":["vegan"],"servings":4,"servingsUnit":"Portionen","prepMinutes":null,"cookMinutes":null,"restMinutes":null,"difficulty":"einfach","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":150,"qtyMax":null,"unit":"g","name":"Couscous","note":""},{"qty":1,"qtyMax":null,"unit":"","name":"Paprika","note":""},{"qty":1,"qtyMax":null,"unit":"","name":"Zucchini","note":""},{"qty":10,"qtyMax":null,"unit":"Blatt","name":"Minze","note":""},{"qty":1,"qtyMax":null,"unit":"TL","name":"Koriander","note":"gemahlen angenommen"},{"qty":1,"qtyMax":null,"unit":"TL","name":"Kreuzkümmel","note":""},{"qty":2,"qtyMax":null,"unit":"TL","name":"Garam Masala","note":"in der Vorlage \"Energie Marsala\""},{"qty":null,"qtyMax":null,"unit":"","name":"Salz","note":"nach Geschmack"},{"qty":null,"qtyMax":null,"unit":"","name":"Pfeffer","note":"nach Geschmack"},{"qty":2,"qtyMax":null,"unit":"EL","name":"Zitronensaft","note":""},{"qty":0.5,"qtyMax":null,"unit":"TL","name":"Currypulver","note":""},{"qty":2,"qtyMax":null,"unit":"Prise","name":"Cayennepfeffer","note":""},{"qty":null,"qtyMax":null,"unit":"","name":"Olivenöl","note":"reichlich"}]}],"steps":[{"text":"Den Couscous nach Packungsanleitung zubereiten und quellen lassen.","section":""},{"text":"Die Paprika waschen, entkernen und in kleine Würfel schneiden.","section":""},{"text":"Die Zucchini waschen und in kleine Würfel schneiden.","section":""},{"text":"Die Minzblätter fein hacken.","section":""},{"text":"Den Couscous mit einer Gabel auflockern und in eine große Schüssel geben.","section":""},{"text":"Paprika, Zucchini und Minze zum Couscous geben.","section":""},{"text":"Koriander, Kreuzkümmel, Garam Masala, Curry und Cayennepfeffer hinzufügen.","section":""},{"text":"Zitronensaft und reichlich Olivenöl untermischen.","section":""},{"text":"Den Salat mit Salz und Pfeffer abschmecken.","section":""}],"tips":"","source":"","id":"rmwtkpbrn9vxdy","createdAt":"2026-11-23T18:02:17.939Z","updatedAt":"2026-11-23T18:02:17.939Z","example":false},{"title":"Currywurstsoße","description":"Würzige Currysauce auf Ketchupbasis mit Zwiebeln, Balsamico, Honig und Currypulver, passend zu Currywurst.","category":"Saucen, Dips & Dressings","tags":["Currywurst","Currysauce","Ketchup","Imbiss","Deutschland"],"diet":["vegetarisch","glutenfrei","laktosefrei"],"servings":4,"servingsUnit":"Portionen","prepMinutes":null,"cookMinutes":null,"restMinutes":null,"difficulty":"einfach","pan":null,"ingredientGroups":[{"name":"","items":[{"qty":1,"qtyMax":null,"unit":"Flasche","name":"Tomatenketchup","note":"750 ml, einfaches Fertigprodukt; ersatzweise Tomatenmark aus der Dose oder Tube"},{"qty":null,"qtyMax":null,"unit":"","name":"Tomatenmark","note":"nur ersatzweise für den Ketchup, aus der Dose oder Tube; Menge nicht angegeben"},{"qty":null,"qtyMax":null,"unit":"","name":"Wasser","note":"nach Belieben und gewünschter Konsistenz"},{"qty":2,"qtyMax":null,"unit":"Stück","name":"Zwiebeln","note":"klein, weiß, sehr fein gehackt"},{"qty":1,"qtyMax":null,"unit":"Spritzer","name":"Olivenöl","note":"in der Vorlage \"1 Schuß\""},{"qty":3,"qtyMax":null,"unit":"EL","name":"Balsamico-Essig","note":"dunkel"},{"qty":1,"qtyMax":null,"unit":"EL","name":"Honig","note":"flüssig"},{"qty":2,"qtyMax":null,"unit":"EL","name":"Currypulver","note":"mittelscharf"},{"qty":1,"qtyMax":null,"unit":"Spritzer","name":"Worcestershiresauce","note":""},{"qty":null,"qtyMax":null,"unit":"","name":"Chilipulver","note":"etwas; ersatzweise etwas Cayennepfeffer"},{"qty":null,"qtyMax":null,"unit":"","name":"Cayennepfeffer","note":"etwas, nur ersatzweise für Chilipulver"},{"qty":1,"qtyMax":null,"unit":"EL","name":"Apfelmus","note":"fein"}]}],"steps":[{"text":"Die sehr fein gehackten Zwiebeln in Olivenöl glasig dünsten.","section":"Currysauce"},{"text":"Den Ketchup dazugeben, alternativ etwas Tomatenmark, und mit Wasser nach Belieben ablöschen.","section":"Currysauce"},{"text":"Balsamico-Essig, Honig, Currypulver und einen Spritzer Worcestershiresauce dazugeben.","section":"Currysauce"},{"text":"Die Sauce bei kleiner Hitze leicht köcheln lassen, dabei den Balsamico-Essig nicht zu schnell verdampfen lassen.","section":"Currysauce"},{"text":"Apfelmus und Chilipulver oder Cayennepfeffer dazugeben und gut umrühren.","section":"Currysauce"},{"text":"Bei Bedarf noch etwas Wasser hinzufügen.","section":"Currysauce"},{"text":"Die Sauce abschmecken und nach Wunsch mit Currypulver oder Chilipulver nachwürzen.","section":"Currysauce"}],"tips":"Der Balsamico-Essig darf nicht zu schnell verdampfen. Statt Ketchup kann Tomatenmark verwendet werden, statt Chilipulver Cayennepfeffer.","source":"","id":"rmwtktmx6f7ceu","createdAt":"2026-11-23T18:05:39.018Z","updatedAt":"2026-11-23T18:05:39.018Z","example":false}]}</script>
@@ -301,7 +419,7 @@ const UNIT_ALIASES = {
 const PLURAL = { Zehe: "Zehen", Prise: "Prisen", Dose: "Dosen", Scheibe: "Scheiben", Tasse: "Tassen", Stange: "Stangen", Zweig: "Zweige", Kugel: "Kugeln", Knolle: "Knollen", Blatt: "Blätter", Glas: "Gläser", Kopf: "Köpfe", Stiel: "Stiele", Flasche: "Flaschen", "Tüte": "Tüten" };
 const METRIC = new Set(["g", "kg", "mg", "ml", "cl", "dl", "l"]);
 const MAX_PAGE_BYTES = 15.5 * 1024 * 1024;
-const FONT_HREF = "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Literata:opsz,wght@7..72,400;7..72,600&family=Schibsted+Grotesk:wght@400;600;700&display=swap";
+const FONT_HREF = "https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap";
 const RESET = ":root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.4 system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}";
 
 let PUB = { site: {}, recipes: [] };
@@ -314,7 +432,7 @@ const S = {
   db: null, sample: null, assets: null, downloads: null, art: null,
   capsReady: false, canEdit: false,
   dbRecipes: new Map(), dbLoaded: false, dbErr: "",
-  filter: { q: "", diet: "", quick: false },
+  filter: { q: "", diets: new Set(), quick: false }, calcOpen: null,
   calc: null, wakeLock: null, wakeWanted: false,
   edit: null, importCtl: null, busyPublish: false
 };
@@ -453,11 +571,38 @@ function imgEditor(r) { return r.coverId ? blobUrl(r.coverId) : (r.coverThumb ||
 
 /* ================= Kopf & Register ================= */
 function renderShell() {
-  $("#app").innerHTML = `<header class="top"><div class="wrap">
+  $("#app").innerHTML = `<div class="tabletop" aria-hidden="true"><div class="window"></div><div class="branch b1"><div class="sway">${branchSvg(7)}</div></div><div class="branch b2"><div class="sway">${branchSvg(31)}</div></div></div>
+    <div class="page"><header class="top"><div class="wrap">
       <a class="mark" href="#" id="mark"></a>
       <nav class="nav" id="nav"></nav></div></header>
     <nav class="register" id="register" aria-label="Kapitel"></nav>
-    <main class="wrap" id="main"></main>`;
+    <main class="wrap" id="main"></main></div>`;
+  startTable();
+}
+/* Olivenzweig als Schattenform: Stiel als Bogen, schmale Blätter paarweise gegenständig (wie beim Olivenbaum) */
+function branchSvg(seed) {
+  let z = seed; const rnd = () => (z = (z * 9301 + 49297) % 233280) / 233280;
+  const pt = (t) => [(1 - t) * (1 - t) * 24 + 2 * (1 - t) * t * 150 + t * t * 370, (1 - t) * (1 - t) * 376 + 2 * (1 - t) * t * 170 + t * t * 36];
+  const leaves = [];
+  for (let i = 1; i <= 10; i++) {
+    const t = i / 11.2, [x, y] = pt(t), [x2, y2] = pt(t + .01), a = Math.atan2(y2 - y, x2 - x) * 180 / Math.PI;
+    for (const side of [-1, 1]) {
+      const len = 46 - t * 14 + rnd() * 10, w = 5 + rnd() * 1.6, ang = a + side * (34 + rnd() * 16);
+      leaves.push(`<ellipse cx="${(len / 2).toFixed(1)}" cy="0" rx="${(len / 2).toFixed(1)}" ry="${w.toFixed(1)}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(1)})"/>`);
+    }
+  }
+  const [tx, ty] = pt(1);
+  leaves.push(`<ellipse cx="18" cy="0" rx="18" ry="4.6" transform="translate(${tx} ${ty}) rotate(-38)"/>`);
+  return `<svg viewBox="0 0 400 400"><path d="M24 376 Q150 170 370 36" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><g fill="currentColor">${leaves.join("")}</g></svg>`;
+}
+/* Tisch: Schatten bewegen sich nur im Inhalt, in Kapiteln und der Merkliste; beim Rezept und in der Küche steht alles still (Akku beim Kochen) */
+function startTable() {
+  let on = false;
+  const rm = matchMedia("(prefers-reduced-motion: reduce)");
+  const apply = () => document.body.classList.toggle("still", !(on && !rm.matches));
+  S.tableOn = (v) => { on = v; apply(); };
+  rm.addEventListener?.("change", apply);
+  apply();
 }
 function currentRoute() { return decodeURIComponent(location.hash.slice(1)); }
 function renderHeader() {
@@ -471,12 +616,16 @@ function renderHeader() {
   const chs = chapters();
   const activeIdx = h.startsWith("kapitel-") ? +h.slice(8) - 1 : h.startsWith("rezept-") && pubById.get(h.slice(7)) ? chIndex(pubById.get(h.slice(7)).category) : -1;
   reg.innerHTML = chs.map((c) => `<a href="#kapitel-${c.idx + 1}" style="--ch:${c.color}" aria-current="${c.idx === activeIdx}" title="${esc(c.cat)}">${esc(c.cat)}</a>`).join("");
+  reg.style.setProperty("--n", Math.max(1, chs.length));
   reg.classList.toggle("on", !kitchen && chs.length > 1);
 }
 
 /* ================= Routing ================= */
 function route() {
   const h = currentRoute();
+  const view = h === "kueche" || h === "neu" || h.startsWith("bearbeiten-") ? "kitchen" : h.startsWith("rezept-") || h.startsWith("entwurf-") ? "recipe" : "book";
+  document.body.dataset.view = view; document.body.dataset.home = h ? "" : "1";
+  S.tableOn?.(view === "book");
   releaseWake();
   renderHeader();
   const main = $("#main");
@@ -498,68 +647,93 @@ function needEditor() {
 }
 
 /* ================= Kochbuch: Titelseite ================= */
-function cardHtml(r, href, img) {
-  const t = totalMin(r);
-  const initial = (r.title || "?").trim()[0] || "?";
-  return `<a class="card" href="${href}" style="--ch:${chColor(r.category)}">
-    <div class="pic">${img ? `<img src="${esc(img)}" alt="" loading="lazy">` : `<div class="ph" aria-hidden="true">${esc(initial)}</div>`}</div>
-    <div class="chap">${esc(r.category || "")}</div>
+const pad2 = (n) => String(n).padStart(2, "0");
+const plural = (n, one, many) => n === 1 ? "1 " + one : n + " " + many;
+const TAB_POS = [0, .5, 1];
+function stampsHtml(r, showExample) {
+  const d = r.diet || []; const shown = d.includes("vegan") ? d.filter((x) => x !== "vegetarisch") : d;
+  return `${r.example && showExample ? `<span class="stamp warn">Beispiel</span>` : ""}${shown.map((x) => `<span class="stamp">${esc(x)}</span>`).join("")}`;
+}
+function metaText(r) { return [totalMin(r) ? minutesText(totalMin(r)) : "", r.servings ? `${deNum(r.servings)} ${r.servingsUnit || "Portionen"}` : "", r.difficulty || ""].filter(Boolean).join(" · "); }
+/* „Gesammelte Rezepte von Felix“ → Reiter „Felix“, Zeile „Gesammelte Rezepte“ (wie auf dem Magneten) */
+function ownerSplit(sub) { const m = /^(.*\S)\s+von\s+(\S+)$/.exec(sub || ""); return m ? { line: m[1], name: m[2] } : { line: sub || "", name: "" }; }
+function cardHtml(r, href, img, showChap) {
+  const stamps = stampsHtml(r, false);
+  return `<a class="rc${img ? " haspic" : ""}" href="${href}" style="--ch:${chColor(r.category)}">
+    ${img ? `<span class="rc-photo"><img src="${esc(img)}" alt="" loading="lazy"></span>` : ""}
+    ${showChap ? `<span class="rc-chap">${esc(r.category || "")}</span>` : ""}
     <h3>${esc(r.title)}</h3>
-    <div class="meta">${t ? `<span>${esc(minutesText(t))}</span>` : ""}${r.servings ? `<span>${esc(deNum(r.servings))} ${esc(r.servingsUnit || "Portionen")}</span>` : ""}${r.difficulty ? `<span>${esc(r.difficulty)}</span>` : ""}${r.example ? `<span class="tag example">Beispiel</span>` : ""}</div>
+    <div class="rc-lines lined">${r.description ? `<p class="rc-desc">${esc(r.description)}</p>` : ""}<p class="rc-meta">${esc(metaText(r))}</p>${stamps ? `<p class="rc-stamps">${stamps}</p>` : ""}</div>
   </a>`;
 }
 function searchPub() {
   const f = S.filter, q = f.q.trim().toLowerCase();
   return PUB.recipes.filter((r) => {
-    if (f.diet && !(r.diet || []).includes(f.diet)) return false;
+    for (const d of f.diets) if (!(r.diet || []).includes(d)) return false;
     if (f.quick && !(totalMin(r) && totalMin(r) <= 30)) return false;
     if (!q) return true;
     const hay = [r.title, r.description, r.category, ...(r.tags || []), ...(r.diet || []), ...(r.ingredientGroups || []).flatMap((g) => (g.items || []).map((i) => i.name))].join(" ").toLowerCase();
     return q.split(/\s+/).every((w) => hay.includes(w));
   }).sort(byTitle);
 }
+function leitHtml(c, i) {
+  return `<article class="leit" style="--ch:${c.color};--pos:${TAB_POS[i % 3]}"><div class="leit-card">
+    <a class="tab" href="#kapitel-${c.idx + 1}"><b>${pad2(c.no)}</b>${esc(c.cat)}</a>
+    <ol>${c.list.map((r) => `<li><a href="#rezept-${esc(r.id)}"><span class="t">${esc(r.title)}</span>${totalMin(r) ? `<span class="dots"></span><span class="m">${esc(minutesText(totalMin(r)))}</span>` : ""}</a></li>`).join("")}</ol>
+  </div></article>`;
+}
 function renderCover() {
-  const chs = chapters(); const site = PUB.site; const n = PUB.recipes.length;
-  const filtering = S.filter.q.trim() || S.filter.diet || S.filter.quick;
+  const chs = chapters(); const site = PUB.site; const n = PUB.recipes.length; const F = S.filter;
+  const filtering = F.q.trim() || F.diets.size || F.quick;
+  const own = ownerSplit(site.subtitle);
+  const stand = PUB.publishedAt ? new Date(PUB.publishedAt).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" }) : "";
+  const diets = DIETS.filter((d) => PUB.recipes.some((r) => (r.diet || []).includes(d)));
+  const res = filtering ? searchPub() : [];
+  const card = `<section class="titlecard" aria-labelledby="bookTitle">
+      <span class="tab">${esc(own.name || "Kochbuch")}</span>
+      <h1 class="tc-title" id="bookTitle">${esc(site.title || "Küchenkartei")}</h1>
+      <div class="tc-lines lined">
+        ${own.line ? `<p class="tc-sub">${esc(own.line)}</p>` : ""}
+        ${site.intro ? `<p class="tc-intro">${esc(site.intro)}</p>` : ""}
+        <p class="tc-count">${plural(n, "Rezept", "Rezepte")} in ${plural(chs.length, "Kapitel", "Kapiteln")}${stand ? ` · <span class="nw">Stand ${esc(stand)}</span>` : ""}</p>
+        ${n ? `<p class="tc-search"><label for="q">Suchen:</label><input id="q" type="search" placeholder="Rezept oder Zutat" value="${esc(F.q)}" autocomplete="off" enterkeyhint="search">${filtering ? `<button class="tc-hits" id="hitsBtn">${res.length === 1 ? "1 Treffer" : res.length + " Treffer"} ↓</button>` : ""}</p>
+        <p class="tc-ticks" role="group" aria-label="Filter">${diets.map((d) => `<button class="tick" data-diet="${d}" aria-pressed="${F.diets.has(d)}">${d}</button>`).join("")}<button class="tick" id="quickF" aria-pressed="${F.quick}">bis 30 Minuten</button></p>` : ""}
+      </div>
+    </section>`;
   let body;
   if (!n) body = `<div class="empty"><h2>Noch keine Rezepte</h2><p>Sobald Rezepte veröffentlicht sind, stehen sie hier im Inhaltsverzeichnis.</p>${S.canEdit ? `<a class="btn primary" href="#kueche">Zur Küche</a>` : ""}</div>`;
   else if (filtering) {
-    const res = searchPub();
-    body = `<div class="results-head"><h2>${res.length === 1 ? "1 Rezept" : res.length + " Rezepte"} gefunden</h2><button class="btn small" id="clearF">Suche zurücksetzen</button></div>
-      ${res.length ? `<div class="grid">${res.map((r) => cardHtml(r, "#rezept-" + esc(r.id), imgPublic(r))).join("")}</div>` : `<p class="muted">Kein Rezept passt dazu.</p>`}`;
-  } else {
-    body = `<section class="toc"><h2>Inhalt</h2><div class="toc-grid">${chs.map((c) => `<div class="toc-ch" style="--ch:${c.color}">
-        <a href="#kapitel-${c.idx + 1}"><span class="no">${String(c.no).padStart(2, "0")}</span><span class="name">${esc(c.cat)}</span></a>
-        <ol>${c.list.map((r) => `<li><a href="#rezept-${esc(r.id)}"><span class="t">${esc(r.title)}</span><span class="dots"></span><span class="m">${esc(minutesText(totalMin(r)) || "")}</span></a></li>`).join("")}</ol></div>`).join("")}</div></section>`;
-  }
-  $("#main").innerHTML = `<section class="cover">
-      <div class="eyebrow">Kochbuch · ${n === 1 ? "1 Rezept" : n + " Rezepte"} · ${chs.length === 1 ? "1 Kapitel" : chs.length + " Kapitel"}</div>
-      <h1 class="booktitle">${esc(site.title || "Küchenkartei")}</h1>
-      ${site.subtitle ? `<p class="subtitle">${esc(site.subtitle)}</p>` : ""}
-      ${site.intro ? `<p class="intro">${esc(site.intro)}</p>` : ""}
-      ${n ? `<div class="finder">
-        <label class="search" for="q"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="Rezept oder Zutat suchen" value="${esc(S.filter.q)}" autocomplete="off"></label>
-        <div class="chips">${DIETS.filter((d) => PUB.recipes.some((r) => (r.diet || []).includes(d))).map((d) => `<button class="chip" data-diet="${d}" aria-pressed="${S.filter.diet === d}">${d}</button>`).join("")}
-          <button class="chip" id="quickF" aria-pressed="${S.filter.quick}">bis 30 Minuten</button></div></div>` : ""}
-    </section>${body}
-    <div class="foot"><span>${PUB.publishedAt ? "Stand: " + esc(new Date(PUB.publishedAt).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })) : ""}</span><span>Mengen lassen sich in jedem Rezept umrechnen.</span></div>`;
+    body = `<div class="results-head" id="results"><h2>${res.length === 1 ? "1 Rezept" : res.length + " Rezepte"} gefunden</h2><button class="linkbtn" id="clearF">Suche zurücksetzen</button></div>
+      ${res.length ? `<div class="rcards">${res.map((r) => cardHtml(r, "#rezept-" + esc(r.id), imgPublic(r), true)).join("")}</div>` : `<p class="table-note">Kein Rezept passt dazu.</p>`}`;
+  } else body = `<h2 class="table-h">Inhalt</h2><div class="leits">${chs.map((c, i) => leitHtml(c, i)).join("")}</div>`;
+  $("#main").innerHTML = card + body + `<footer class="foot"><span>Die Mengen lassen sich in jedem Rezept umrechnen.</span></footer>`;
+  const toResults = () => $("#results")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
   const q = $("#q");
-  if (q) q.addEventListener("input", () => { S.filter.q = q.value; const pos = q.selectionStart; renderCover(); const nq = $("#q"); nq.focus(); nq.setSelectionRange(pos, pos); });
-  document.querySelectorAll("[data-diet]").forEach((b) => b.onclick = () => { S.filter.diet = S.filter.diet === b.dataset.diet ? "" : b.dataset.diet; renderCover(); });
-  const qf = $("#quickF"); if (qf) qf.onclick = () => { S.filter.quick = !S.filter.quick; renderCover(); };
-  const cl = $("#clearF"); if (cl) cl.onclick = () => { S.filter = { q: "", diet: "", quick: false }; renderCover(); };
+  if (q) {
+    q.addEventListener("input", () => { S.filter.q = q.value; const pos = q.selectionStart; renderCover(); const nq = $("#q"); nq.focus(); nq.setSelectionRange(pos, pos); });
+    q.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); q.blur(); toResults(); } });
+  }
+  document.querySelectorAll("[data-diet]").forEach((b) => b.onclick = () => { const d = b.dataset.diet; F.diets.has(d) ? F.diets.delete(d) : F.diets.add(d); renderCover(); });
+  const qf = $("#quickF"); if (qf) qf.onclick = () => { F.quick = !F.quick; renderCover(); };
+  const hb = $("#hitsBtn"); if (hb) hb.onclick = toResults;
+  const cl = $("#clearF"); if (cl) cl.onclick = () => { S.filter = { q: "", diets: new Set(), quick: false }; renderCover(); };
 }
 function renderChapter(idx) {
   const c = chapters().find((x) => x.idx === idx);
   if (!c) { $("#main").innerHTML = `<div class="empty"><h2>Kapitel leer</h2><p>In diesem Kapitel gibt es noch keine Rezepte.</p><a class="btn" href="#">Zum Inhalt</a></div>`; return; }
-  $("#main").innerHTML = `<div style="--ch:${c.color}">
-    <header class="opener"><div class="big">${String(c.no).padStart(2, "0")}</div><div><div class="eyebrow">Kapitel</div><h1>${esc(c.cat)}</h1><div class="muted">${c.list.length === 1 ? "1 Rezept" : c.list.length + " Rezepte"}</div></div></header>
-    <div class="grid">${c.list.map((r) => cardHtml(r, "#rezept-" + esc(r.id), imgPublic(r))).join("")}</div></div>`;
+  $("#main").innerHTML = `<nav class="crumbs"><a href="#">← Inhalt</a></nav>
+    <div class="leit leit-head" style="--ch:${c.color};--pos:0"><div class="leit-card">
+      <span class="tab"><b>${pad2(c.no)}</b>Kapitel</span>
+      <h1>${esc(c.cat)}</h1><p class="leit-count">${plural(c.list.length, "Rezept", "Rezepte")}</p></div></div>
+    <div class="rcards">${c.list.map((r) => cardHtml(r, "#rezept-" + esc(r.id), imgPublic(r), false)).join("")}</div>`;
 }
 function renderMerkliste() {
   const list = PUB.recipes.filter((r) => FAVS.has(r.id)).sort(byTitle);
-  $("#main").innerHTML = `<header class="opener" style="--ch:var(--ink)"><div class="big">♥</div><div><div class="eyebrow">Auf diesem Gerät gemerkt</div><h1>Merkliste</h1></div></header>
-    ${list.length ? `<div class="grid">${list.map((r) => cardHtml(r, "#rezept-" + esc(r.id), imgPublic(r))).join("")}</div>`
+  $("#main").innerHTML = `<nav class="crumbs"><a href="#">← Inhalt</a></nav>
+    <div class="leit leit-head" style="--ch:#B03A3A;--pos:0"><div class="leit-card">
+      <span class="tab"><b>♥</b>Merkliste</span>
+      <h1>Gemerkte Rezepte</h1><p class="leit-count">Auf diesem Gerät gemerkt${list.length ? " · " + plural(list.length, "Rezept", "Rezepte") : ""}</p></div></div>
+    ${list.length ? `<div class="rcards">${list.map((r) => cardHtml(r, "#rezept-" + esc(r.id), imgPublic(r), true)).join("")}</div>`
       : `<div class="empty"><h2>Noch nichts gemerkt</h2><p>Tippe in einem Rezept auf „Merken“, dann findest du es hier wieder. Die Merkliste bleibt auf diesem Gerät.</p><a class="btn" href="#">Zum Inhalt</a></div>`}`;
 }
 
@@ -578,13 +752,17 @@ function renderIngredients(r) {
   const c = S.calc, f = calcFactor(r, c); let k = 0; const scaled = Math.abs(f - 1) > 1e-6;
   const html = (r.ingredientGroups || []).map((g) => `${g.name ? `<h3>${esc(g.name)}</h3>` : ""}<ul>${(g.items || []).map((it) => {
     const i = k++; const q = fmtQty(it, f);
-    return `<li class="ing${c.doneIng.has(i) ? " done" : ""}" data-i="${i}"><span class="q${scaled && q.text ? " scaled" : ""}">${esc(q.text)}${q.unit ? " " + esc(q.unit) : ""}</span><span>${esc(it.name)}${it.note ? ` <small>${esc(it.note)}</small>` : ""}</span></li>`;
+    const d = c.doneIng.has(i);
+    return `<li class="ing${d ? " done" : ""}" data-i="${i}" role="checkbox" tabindex="0" aria-checked="${d}"><span class="q${scaled && q.text ? " scaled" : ""}">${esc(q.text)}${q.unit ? " " + esc(q.unit) : ""}</span><span>${esc(it.name)}${it.note ? ` <small>${esc(it.note)}</small>` : ""}</span></li>`;
   }).join("")}</ul>`).join("");
   $("#ingList").innerHTML = html || `<p class="muted">Keine Zutaten erfasst.</p>`;
-  $("#ingList").querySelectorAll(".ing").forEach((li) => li.onclick = () => { const i = +li.dataset.i; c.doneIng.has(i) ? c.doneIng.delete(i) : c.doneIng.add(i); li.classList.toggle("done"); });
+  $("#ingList").querySelectorAll(".ing").forEach((li) => checkKeys(li, () => { const i = +li.dataset.i; const on = !c.doneIng.has(i); on ? c.doneIng.add(i) : c.doneIng.delete(i); li.classList.toggle("done", on); li.setAttribute("aria-checked", on); }));
   $("#factor").textContent = "× " + deNum(f, 2);
   $("#resetCalc").disabled = !scaled;
   $("#svOut").textContent = r.servings ? `ergibt ${deNum((+r.servings) * f, 1)} ${r.servingsUnit || "Portionen"}` : "";
+  const unit = r.servingsUnit || "Portionen", sum = $("#calcSum");
+  if (sum) sum.textContent = scaled ? `× ${deNum(f, 2)}${r.servings ? ` · ${deNum((+r.servings) * f, 1)} ${unit}` : ""}` : (r.servings ? `für ${deNum(+r.servings)} ${unit}` : "");
+  snapSlip();
 }
 function panEditor(p, key) {
   return `<div class="pan" data-pan="${key}"><span class="lbl">${key === "panFrom" ? "Form im Rezept" : "Deine Form"}</span>
@@ -625,7 +803,16 @@ function renderCalcBody(r) {
     });
   }
 }
-/* ctx: { img, chapterLabel, chapterHref, prev, next, top (HTML über dem Kopf), originals[] } */
+/* Rechenzettel auf volle Zeilen bringen, damit die Zutaten darunter wieder auf den Linien stehen */
+function snapSlip() {
+  const s = $(".slip"); if (!s) return;
+  const L = parseFloat(getComputedStyle(s.closest(".lined") || s).lineHeight) || 30;
+  s.style.minHeight = ""; s.style.minHeight = Math.ceil(s.offsetHeight / L) * L + "px";
+}
+addEventListener("resize", snapSlip);
+try { document.fonts?.ready.then(snapSlip); } catch {}
+/* ctx: { img, chapterNo, chapterName, chapterHref, back: [[href, label], …], prev, next, top (HTML über der Karte), originals[], public } */
+function checkKeys(el, toggle) { el.onclick = toggle; el.onkeydown = (e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(); } }; }
 function renderRecipe(r, ctx) {
   if (!S.calc || S.calc.id !== r.id) S.calc = defaultCalc(r);
   const c = S.calc;
@@ -640,52 +827,61 @@ function renderRecipe(r, ctx) {
   let sec = null;
   const steps = (r.steps || []).map((st, i) => {
     const h = st.section && st.section !== sec ? `<h3>${esc(st.section)}</h3>` : ""; sec = st.section || sec;
-    return `${h}<li data-s="${i}" class="${c.doneStep.has(i) ? "done" : ""}">${esc(st.text)}</li>`;
+    const d = c.doneStep.has(i);
+    return `${h}<li data-s="${i}" role="checkbox" tabindex="0" aria-checked="${d}" class="${d ? "done" : ""}">${esc(st.text)}</li>`;
   }).join("");
   const fav = FAVS.has(r.id);
-  $("#main").innerHTML = `${ctx.top || ""}<article class="recipe" style="--ch:${chColor(r.category)}">
-    <header class="r-head${ctx.img ? "" : " nopic"}">
-      <div>
-        <a class="crumb" href="${ctx.chapterHref}">${esc(ctx.chapterLabel)}</a>
-        <h1>${esc(r.title)}</h1>
-        ${r.description ? `<p class="lede">${esc(r.description)}</p>` : ""}
-        ${facts.length ? `<dl class="facts">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>` : ""}
-        <div class="r-tags">${r.example ? `<span class="tag example">Beispielrezept</span>` : ""}${(r.diet || []).map((d) => `<span class="tag diet">${esc(d)}</span>`).join("")}${(r.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
-        <div class="r-actions">${ctx.public ? `<button class="btn small" id="favBtn" aria-pressed="${fav}">${fav ? "♥ Gemerkt" : "♡ Merken"}</button>` : ""}
-          <label class="wake" for="wakeChk"><input type="checkbox" id="wakeChk" ${S.wakeWanted ? "checked" : ""}> Bildschirm beim Kochen anlassen</label></div>
-      </div>
+  const stamps = stampsHtml(r, !ctx.public);
+  const back = ctx.back || [["#", "Inhalt"]];
+  const open = S.calcOpen ?? matchMedia("(min-width: 861px)").matches;
+  const hint = `<span class="h-hint">zum Abhaken antippen</span>`;
+  $("#main").innerHTML = `${ctx.top || ""}<nav class="crumbs" aria-label="Zurück">← ${back.map(([h, l]) => `<a href="${h}">${esc(l)}</a>`).join(` <span aria-hidden="true">/</span> `)}</nav>
+  <article class="recipe" style="--ch:${chColor(r.category)}">
+    <a class="tab" href="${ctx.chapterHref}">${ctx.chapterNo ? `<b>${esc(ctx.chapterNo)}</b>` : ""}${esc(ctx.chapterName || "")}</a>
+    <header class="r-head${ctx.img ? " haspic" : ""}">
+      <div><h1>${esc(r.title)}</h1>${r.description ? `<p class="lede">${esc(r.description)}</p>` : ""}</div>
       ${ctx.img ? `<figure class="r-photo"><img src="${esc(ctx.img)}" alt="${esc(r.title)}"></figure>` : ""}
     </header>
-    <div class="r-body">
-      <aside class="r-side">
-        <div class="calc"><span class="eyebrow">Mengen anpassen</span>
-          <div class="seg" role="group" aria-label="Rechenart">
-            <button data-mode="portionen" aria-pressed="${c.mode === "portionen"}">Portionen</button>
-            <button data-mode="zutat" aria-pressed="${c.mode === "zutat"}">Nach Zutat</button>
-            <button data-mode="form" aria-pressed="${c.mode === "form"}">Backform</button></div>
-          <div id="calcBody"></div>
-          <div class="factor"><span class="muted" id="svOut"></span><b id="factor">× 1</b><button class="btn small" id="resetCalc">Zurücksetzen</button></div>
-        </div>
-        <div class="ings"><h2>Zutaten</h2><div id="ingList"></div><p class="hint">Antippen zum Abhaken.</p></div>
-      </aside>
-      <div>
-        <section class="r-method"><h2>Zubereitung</h2>${steps ? `<ol>${steps}</ol>` : `<p class="muted">Keine Schritte erfasst.</p>`}</section>
-        <div class="r-extra">
-          ${r.tips ? `<div><h2>Tipps</h2><div class="tips">${esc(r.tips)}</div></div>` : ""}
-          ${(ctx.originals || []).length ? `<div><h2>Originalvorlage</h2><p class="hint">Nur in der Küche sichtbar.</p><div class="thumbs">${ctx.originals.map((a) => `<a href="${esc(blobUrl(a))}" target="_blank" rel="noopener"><img src="${esc(blobUrl(a))}" alt="Originalfoto" loading="lazy"></a>`).join("")}</div></div>` : ""}
-          ${r.source ? `<div class="source">Quelle: ${esc(r.source)}</div>` : ""}
+    <div class="r-lined lined">
+      ${facts.length ? `<p class="facts">${facts.map(([k, v]) => `<span class="f"><span class="k">${esc(k)}</span>${esc(v)}</span>`).join(" ")}</p>` : ""}
+      ${stamps ? `<p class="r-stamps">${stamps}</p>` : ""}
+      <p class="r-actions">${ctx.public ? `<button class="tbtn" id="favBtn" aria-pressed="${fav}">${fav ? "♥ Gemerkt" : "♡ Merken"}</button>` : ""}
+        <label class="wake" for="wakeChk"><input type="checkbox" id="wakeChk" ${S.wakeWanted ? "checked" : ""}> Bildschirm beim Kochen anlassen</label></p>
+      <div class="r-body">
+        <aside class="r-side">
+          <details class="slip calc" id="calcBox"${open ? " open" : ""}>
+            <summary><span class="slip-h">Mengen umrechnen</span><span class="slip-sum" id="calcSum"></span></summary>
+            <div class="slip-body">
+              <div class="seg" role="group" aria-label="Rechenart">
+                <button data-mode="portionen" aria-pressed="${c.mode === "portionen"}">Portionen</button>
+                <button data-mode="zutat" aria-pressed="${c.mode === "zutat"}">Nach Zutat</button>
+                <button data-mode="form" aria-pressed="${c.mode === "form"}">Backform</button></div>
+              <div id="calcBody"></div>
+              <div class="factor"><span class="muted" id="svOut"></span><b id="factor">× 1</b><button class="tbtn" id="resetCalc">Zurücksetzen</button></div>
+            </div>
+          </details>
+          <section class="ings"><h2>Zutaten ${hint}</h2><div id="ingList"></div></section>
+        </aside>
+        <div class="r-main">
+          <section class="r-method"><h2>Zubereitung${steps ? " " + hint : ""}</h2>${steps ? `<ol>${steps}</ol>` : `<p class="hint">Keine Schritte erfasst.</p>`}</section>
+          ${r.tips ? `<section class="r-notes"><h2>Notizen</h2><div class="tips">${esc(r.tips)}</div></section>` : ""}
+          ${(ctx.originals || []).length ? `<section><h2>Originalvorlage</h2><p class="hint">Nur in der Küche sichtbar.</p><div class="thumbs">${ctx.originals.map((a) => `<a href="${esc(blobUrl(a))}" target="_blank" rel="noopener"><img src="${esc(blobUrl(a))}" alt="Originalfoto" loading="lazy"></a>`).join("")}</div></section>` : ""}
+          ${r.source ? `<p class="source">Quelle: ${esc(r.source)}</p>` : ""}
+          ${(r.tags || []).length ? `<p class="keywords"><span class="k">Stichworte</span>${esc(r.tags.join(", "))}</p>` : ""}
         </div>
       </div>
     </div>
-    ${ctx.prev || ctx.next ? `<nav class="r-nav">${ctx.prev ? `<a href="#rezept-${esc(ctx.prev.id)}"><span>← Vorheriges</span><b>${esc(ctx.prev.title)}</b></a>` : "<span></span>"}${ctx.next ? `<a href="#rezept-${esc(ctx.next.id)}"><span>Nächstes →</span><b>${esc(ctx.next.title)}</b></a>` : ""}</nav>` : ""}
-  </article>`;
+  </article>
+  ${ctx.prev || ctx.next ? `<nav class="r-nav" aria-label="Weitere Rezepte im Kapitel">${ctx.prev ? `<a href="#rezept-${esc(ctx.prev.id)}"><span>← Vorige Karte</span><b>${esc(ctx.prev.title)}</b></a>` : "<span></span>"}${ctx.next ? `<a href="#rezept-${esc(ctx.next.id)}"><span>Nächste Karte →</span><b>${esc(ctx.next.title)}</b></a>` : ""}</nav>` : ""}
+  ${ctx.public ? `<nav class="r-up" aria-label="Zurück">${ctx.chapterHref !== "#" ? `<a href="${ctx.chapterHref}">↑ Zum Kapitel</a><span aria-hidden="true">·</span>` : ""}<a href="#">Zum Inhalt</a></nav>` : ""}`;
   renderCalcBody(r); renderIngredients(r);
+  const box = $("#calcBox"); box.addEventListener("toggle", () => { S.calcOpen = box.open; snapSlip(); });
   document.querySelectorAll("[data-mode]").forEach((b) => b.onclick = () => {
     c.mode = b.dataset.mode; document.querySelectorAll("[data-mode]").forEach((x) => x.setAttribute("aria-pressed", x === b));
     renderCalcBody(r); renderIngredients(r);
   });
   $("#resetCalc").onclick = () => { const keep = { doneIng: c.doneIng, doneStep: c.doneStep, mode: c.mode }; S.calc = Object.assign(defaultCalc(r), keep); renderCalcBody(r); renderIngredients(r); };
-  document.querySelectorAll(".r-method li").forEach((li) => li.onclick = () => { const i = +li.dataset.s; c.doneStep.has(i) ? c.doneStep.delete(i) : c.doneStep.add(i); li.classList.toggle("done"); });
+  document.querySelectorAll(".r-method li").forEach((li) => checkKeys(li, () => { const i = +li.dataset.s; const on = !c.doneStep.has(i); on ? c.doneStep.add(i) : c.doneStep.delete(i); li.classList.toggle("done", on); li.setAttribute("aria-checked", on); }));
   const wk = $("#wakeChk"); wk.onchange = () => { S.wakeWanted = wk.checked; wk.checked ? requestWake() : releaseWake(); };
   if (S.wakeWanted) requestWake();
   const fb = $("#favBtn"); if (fb) fb.onclick = () => { toggleFav(r.id); const on = FAVS.has(r.id); fb.textContent = on ? "♥ Gemerkt" : "♡ Merken"; fb.setAttribute("aria-pressed", on); };
@@ -698,8 +894,8 @@ function renderPublicRecipe(id) {
   }
   const ch = chapterOf(r); const list = ch ? ch.list : [r]; const i = list.findIndex((x) => x.id === id);
   renderRecipe(r, {
-    public: true, img: imgPublic(r), chapterLabel: ch ? `Kapitel ${String(ch.no).padStart(2, "0")} · ${ch.cat}` : r.category,
-    chapterHref: ch ? `#kapitel-${ch.idx + 1}` : "#", prev: list[i - 1], next: list[i + 1],
+    public: true, img: imgPublic(r), chapterNo: ch ? pad2(ch.no) : "", chapterName: ch ? ch.cat : (r.category || ""),
+    chapterHref: ch ? `#kapitel-${ch.idx + 1}` : "#", back: ch ? [["#", "Inhalt"], [`#kapitel-${ch.idx + 1}`, `${pad2(ch.no)} ${ch.cat}`]] : [["#", "Inhalt"]], prev: list[i - 1], next: list[i + 1],
     top: S.canEdit ? `<div class="statusbar"><span class="grow muted">Du siehst die veröffentlichte Fassung.</span><a class="btn small" href="#entwurf-${esc(id)}">In der Küche öffnen</a></div>` : ""
   });
 }
@@ -764,7 +960,7 @@ function renderKitchen() {
           <label class="btn small" for="impFile">JSON importieren</label><input type="file" id="impFile" accept="application/json,.json" hidden></div>
         <p class="hint" id="footMsg"></p>
         <div class="eyebrow" style="margin-top:16px">GitHub-Seite</div>
-        <p class="hint" style="margin-top:6px">Das Kochbuch liegt zusätzlich unter <a href="${GH_URL}" target="_blank" rel="noopener">${GH_URL.replace("https://", "")}</a>, das ist die Adresse für den NFC-Chip. Nach dem Veröffentlichen hier die Seite herunterladen, im Ordner „kuechenkartei“ ersetzen und mit GitHub Desktop hochladen.</p>
+        <p class="hint" style="margin-top:6px">Das Kochbuch liegt zusätzlich unter <a href="${GH_URL}" target="_blank" rel="noopener">${GH_URL.replace("https://", "")}</a>, das ist die Adresse für den NFC-Chip. Nach dem Veröffentlichen hier die Seite herunterladen und auf <a href="${GH_UPLOAD}" target="_blank" rel="noopener">GitHub hochladen</a>: Datei hineinziehen bzw. auswählen, dann „Commit changes“. Die alte index.html wird ersetzt, nach etwa einer Minute ist die Seite aktuell.</p>
         ${ghStale() ? `<p class="note" id="ghNote" style="margin-top:8px">Seit dem letzten Download auf diesem Gerät wurde etwas veröffentlicht. Die GitHub-Seite ist vermutlich nicht aktuell.</p>` : ""}
         <div class="chips" style="margin-top:8px"><button class="btn small" id="ghExp">index.html für GitHub herunterladen</button></div>
         <p class="hint" id="ghMsg"></p>
@@ -795,7 +991,7 @@ function renderDraft(id) {
       ${st === "draft" ? `<button class="btn small go" id="dPub">Veröffentlichen</button>` : st === "changed" ? `<button class="btn small go" id="dPub">Änderungen veröffentlichen</button>` : `<a class="btn small" href="#rezept-${esc(id)}">Im Kochbuch ansehen</a>`}
       ${st !== "draft" ? `<button class="btn small" id="dUnpub">Zurückziehen</button>` : ""}
       <a class="btn small" href="#bearbeiten-${esc(id)}">Bearbeiten</a><button class="btn small danger" id="dDel">Löschen</button></div><div id="pubMsg"></div>`;
-  renderRecipe(r, { public: false, img: imgEditor(r), chapterLabel: r.category || "", chapterHref: "#kueche", top, originals: r.originalIds || [] });
+  renderRecipe(r, { public: false, img: imgEditor(r), chapterNo: "", chapterName: r.category || "", chapterHref: "#kueche", back: [["#kueche", "Küche"]], top, originals: r.originalIds || [] });
   const p = $("#dPub"); if (p) p.onclick = () => publishRecipes([id]);
   const u = $("#dUnpub"); if (u) u.onclick = () => unpublishRecipe(id);
   $("#dDel").onclick = () => {
@@ -1159,6 +1355,7 @@ document.addEventListener("paste", (e) => {
 
 /* ================= Sicherung ================= */
 const GH_URL = "https://ms29rryj5h-coder.github.io/kuechenkartei/";
+const GH_UPLOAD = "https://github.com/ms29rryj5h-coder/kuechenkartei/upload/main";
 function ghStale() { try { return localStorage.getItem("kk-gh-export") !== PUB.publishedAt; } catch { return false; } }
 async function exportGithub() {
   const msg = $("#ghMsg");
@@ -1167,7 +1364,7 @@ async function exportGithub() {
     await S.downloads.save({ filename: "index.html", data: buildPage(PUB) });
     try { localStorage.setItem("kk-gh-export", PUB.publishedAt || ""); } catch {}
     $("#ghNote")?.remove();
-    msg.textContent = "index.html übergeben. Jetzt im Ordner „kuechenkartei“ ersetzen und mit GitHub Desktop hochladen.";
+    msg.textContent = "index.html übergeben. Jetzt auf GitHub unter „Upload files“ hochladen und „Commit changes“ drücken.";
   } catch (e) {
     msg.textContent = e?.code === "declined" ? "Download abgebrochen."
       : (e?.code === "rejected_extension" || e?.code === "extension_not_enabled") ? "HTML-Dateien lassen sich in dieser Ansicht nicht herunterladen."
