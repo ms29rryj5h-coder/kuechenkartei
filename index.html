@@ -109,6 +109,8 @@ body[data-home="1"] .mark { visibility: hidden; }
 .foot { margin-top: 52px; font: 0.875rem/1.4 var(--f-type); color: var(--table-ink); display: flex; gap: 8px 16px; flex-wrap: wrap; justify-content: space-between; }
 .table-h { font: 700 0.875rem/1.2 var(--f-type); text-transform: uppercase; letter-spacing: .16em; color: var(--table-ink); margin-top: 46px; }
 .table-note { font: 1rem/1.5 var(--f-type); color: var(--table-ink); margin-top: 14px; }
+.toc-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 46px; }
+.toc-head .table-h { margin-top: 0; }
 
 /* ---------- Papier: Reiter, Linien, Stempel ---------- */
 .lined { line-height: var(--line); background-image: repeating-linear-gradient(to bottom, transparent 0 calc(var(--line) - 1px), var(--line-blue) calc(var(--line) - 1px) var(--line)); background-position: 0 calc(-1 * var(--lift)); }
@@ -397,9 +399,12 @@ textarea.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-siz
 
 /* ---------- Handy: ruhiger Karteikasten ---------- */
 /* Inhalt als Registerstapel (eine Trennkarte je Kapitel), Kapitelseiten mit kompakten Karten (Titel + eine Zeile). Desktop bleibt unverändert. */
-.leit-row, .rc-dt, .lr-all { display: none; }
+.leit-row, .rc-dt, .lr-all, .lr-alltog { display: none; }
 @media (max-width: 600px) {
-  .table-h { margin-top: 38px; }
+  .toc-head { margin-top: 30px; }
+  .lr-alltog { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 2px; background: none; border: 0; cursor: pointer; color: var(--table-ink); font: 0.9375rem/1.2 var(--f-type); white-space: nowrap; }
+  .lr-alltog[aria-pressed="true"] .lr-tick::after { content: "x"; }
+  .lr-alltog:focus-visible { outline-color: var(--table-ink); }
   .leits { gap: 0; margin-top: 16px; }
   .leit { padding-top: 0; }
   .leit + .leit { margin-top: -6px; }
@@ -730,6 +735,8 @@ function renderCover() {
   const stand = PUB.publishedAt ? new Date(PUB.publishedAt).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" }) : "";
   const diets = DIETS.filter((d) => PUB.recipes.some((r) => (r.diet || []).includes(d)));
   const res = filtering ? searchPub() : [];
+  if (!S.openCh) { S.openCh = new Set(); if (lsGet("kk-allopen", false)) chs.forEach((c) => S.openCh.add(c.idx)); }
+  const allOpen = chs.length > 0 && chs.every((c) => S.openCh.has(c.idx));
   const card = `<section class="titlecard" aria-labelledby="bookTitle">
       <span class="tab">${esc(own.name || "Kochbuch")}</span>
       <h1 class="tc-title" id="bookTitle">${esc(site.title || "Küchenkartei")}</h1>
@@ -746,7 +753,7 @@ function renderCover() {
   else if (filtering) {
     body = `<div class="results-head" id="results"><h2>${res.length === 1 ? "1 Rezept" : res.length + " Rezepte"} gefunden</h2><button class="linkbtn" id="clearF">Suche zurücksetzen</button></div>
       ${res.length ? `<div class="rcards">${res.map((r) => cardHtml(r, "#rezept-" + esc(r.id), imgPublic(r), true)).join("")}</div>` : `<p class="table-note">Kein Rezept passt dazu.</p>`}`;
-  } else body = `<h2 class="table-h">Inhalt</h2><div class="leits">${chs.map((c, i) => leitHtml(c, i)).join("")}</div>`;
+  } else body = `<div class="toc-head"><h2 class="table-h">Inhalt</h2><button class="lr-alltog" id="allCh" type="button" aria-pressed="${allOpen}"><span class="lr-tick" aria-hidden="true"></span>Alle aufklappen</button></div><div class="leits">${chs.map((c, i) => leitHtml(c, i)).join("")}</div>`;
   $("#main").innerHTML = card + body + `<footer class="foot"><span>Die Mengen lassen sich in jedem Rezept umrechnen.</span></footer>`;
   const toResults = () => $("#results")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
   const q = $("#q");
@@ -757,12 +764,12 @@ function renderCover() {
   document.querySelectorAll("[data-diet]").forEach((b) => b.onclick = () => { const d = b.dataset.diet; F.diets.has(d) ? F.diets.delete(d) : F.diets.add(d); renderCover(); });
   const qf = $("#quickF"); if (qf) qf.onclick = () => { F.quick = !F.quick; renderCover(); };
   const hb = $("#hitsBtn"); if (hb) hb.onclick = toResults;
-  document.querySelectorAll(".leit-row").forEach((b) => b.onclick = () => {
-    S.openCh = S.openCh || new Set();
-    const id = +b.dataset.ch, open = !S.openCh.has(id);
-    open ? S.openCh.add(id) : S.openCh.delete(id);
-    b.setAttribute("aria-expanded", open); b.closest(".leit").classList.toggle("open", open);
-  });
+  const rows = [...document.querySelectorAll(".leit-row")];
+  const setOpen = (b, open) => { const id = +b.dataset.ch; open ? S.openCh.add(id) : S.openCh.delete(id); b.setAttribute("aria-expanded", open); b.closest(".leit").classList.toggle("open", open); };
+  const syncAll = () => { const a = $("#allCh"); if (a) a.setAttribute("aria-pressed", rows.every((b) => S.openCh.has(+b.dataset.ch))); };
+  rows.forEach((b) => b.onclick = () => { setOpen(b, !S.openCh.has(+b.dataset.ch)); syncAll(); });
+  const ac = $("#allCh");
+  if (ac) ac.onclick = () => { const open = ac.getAttribute("aria-pressed") !== "true"; rows.forEach((b) => setOpen(b, open)); syncAll(); lsSet("kk-allopen", open); };
   const cl = $("#clearF"); if (cl) cl.onclick = () => { S.filter = { q: "", diets: new Set(), quick: false }; renderCover(); };
 }
 function renderChapter(idx) {
