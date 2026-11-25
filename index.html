@@ -397,7 +397,7 @@ textarea.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-siz
 
 /* ---------- Handy: ruhiger Karteikasten ---------- */
 /* Inhalt als Registerstapel (eine Trennkarte je Kapitel), Kapitelseiten mit kompakten Karten (Titel + eine Zeile). Desktop bleibt unverändert. */
-.leit-row, .rc-dt { display: none; }
+.leit-row, .rc-dt, .lr-all { display: none; }
 @media (max-width: 600px) {
   .table-h { margin-top: 38px; }
   .leits { gap: 0; margin-top: 16px; }
@@ -405,12 +405,19 @@ textarea.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-siz
   .leit + .leit { margin-top: -6px; }
   .leit-card { padding: 0; border-radius: 8px 8px 3px 3px; box-shadow: 0 -1px 0 rgba(45, 30, 12, .08), 0 -8px 14px -10px rgba(45, 30, 12, .45); }
   .leit:last-child .leit-card { box-shadow: 0 -1px 0 rgba(45, 30, 12, .08), 0 -8px 14px -10px rgba(45, 30, 12, .45), var(--shadow-card); }
-  .leit-card > .tab, .leit-card > ol { display: none; }
-  .leit-row { display: flex; align-items: baseline; gap: 12px; padding: 15px 16px 19px; text-decoration: none; color: var(--ink); font: 700 1rem/1.25 var(--f-type); }
+  .leit-card > .tab, .leit:not(.open) .leit-card > ol { display: none; }
+  .leit-row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 14px 16px 18px; background: none; border: 0; text-align: left; cursor: pointer; color: var(--ink); font: 700 1rem/1.25 var(--f-type); }
+  .lr-tick { flex: none; width: 1.05em; height: 1.05em; border: 1.5px solid currentColor; display: inline-grid; place-items: center; font: 700 1rem/1 var(--f-type); }
+  .leit-row[aria-expanded="true"] .lr-tick::after { content: "x"; }
+  .leit.open .leit-row { padding-bottom: 8px; }
+  .leit.open .leit-card > ol { padding: 0 16px 0 calc(16px + 1.05em + 12px); }
+  .leit.open .leit li a { padding-block: 9px; }
+  .lr-all { font: 0.875rem/1.3 var(--f-type); color: var(--ink); text-underline-offset: 4px; padding: 10px 16px 18px calc(16px + 1.05em + 12px); }
+  .leit.open .lr-all { display: block; }
   .leit-row b { color: var(--ch-text); font-variant-numeric: tabular-nums; flex: none; }
+  .leit-row:focus-visible { outline-offset: -3px; }
   .lr-name { flex: 1; min-width: 0; }
   .lr-count { flex: none; font: 400 0.8125rem/1.25 var(--f-type); color: var(--muted); white-space: nowrap; }
-  .lr-go { flex: none; font-weight: 400; color: var(--muted); }
   .leit-head .leit-card { padding: 16px 18px 18px; border-radius: 3px; box-shadow: var(--shadow-card); }
   .leit-head .leit-card > .tab { display: block; }
   .leit-head { padding-top: 40px; }
@@ -708,10 +715,12 @@ function searchPub() {
   }).sort(byTitle);
 }
 function leitHtml(c, i) {
-  return `<article class="leit" style="--ch:${c.color};--pos:${TAB_POS[i % 3]}"><div class="leit-card">
+  const open = (S.openCh || new Set()).has(c.idx);
+  return `<article class="leit${open ? " open" : ""}" style="--ch:${c.color};--pos:${TAB_POS[i % 3]}"><div class="leit-card">
     <a class="tab" href="#kapitel-${c.idx + 1}"><b>${pad2(c.no)}</b>${esc(c.cat)}</a>
-    <a class="leit-row" href="#kapitel-${c.idx + 1}"><b>${pad2(c.no)}</b><span class="lr-name">${esc(c.cat)}</span><span class="lr-count">${plural(c.list.length, "Rezept", "Rezepte")}</span><span class="lr-go" aria-hidden="true">›</span></a>
-    <ol>${c.list.map((r) => `<li><a href="#rezept-${esc(r.id)}"><span class="t">${esc(r.title)}</span>${totalMin(r) ? `<span class="dots"></span><span class="m">${esc(minutesText(totalMin(r)))}</span>` : ""}</a></li>`).join("")}</ol>
+    <button class="leit-row" type="button" data-ch="${c.idx}" aria-expanded="${open}" aria-controls="ch-list-${c.idx}"><span class="lr-tick" aria-hidden="true"></span><b>${pad2(c.no)}</b><span class="lr-name">${esc(c.cat)}</span><span class="lr-count">${plural(c.list.length, "Rezept", "Rezepte")}</span></button>
+    <ol id="ch-list-${c.idx}">${c.list.map((r) => `<li><a href="#rezept-${esc(r.id)}"><span class="t">${esc(r.title)}</span>${totalMin(r) ? `<span class="dots"></span><span class="m">${esc(minutesText(totalMin(r)))}</span>` : ""}</a></li>`).join("")}</ol>
+    <a class="lr-all" href="#kapitel-${c.idx + 1}">Ganzes Kapitel ansehen ›</a>
   </div></article>`;
 }
 function renderCover() {
@@ -748,6 +757,12 @@ function renderCover() {
   document.querySelectorAll("[data-diet]").forEach((b) => b.onclick = () => { const d = b.dataset.diet; F.diets.has(d) ? F.diets.delete(d) : F.diets.add(d); renderCover(); });
   const qf = $("#quickF"); if (qf) qf.onclick = () => { F.quick = !F.quick; renderCover(); };
   const hb = $("#hitsBtn"); if (hb) hb.onclick = toResults;
+  document.querySelectorAll(".leit-row").forEach((b) => b.onclick = () => {
+    S.openCh = S.openCh || new Set();
+    const id = +b.dataset.ch, open = !S.openCh.has(id);
+    open ? S.openCh.add(id) : S.openCh.delete(id);
+    b.setAttribute("aria-expanded", open); b.closest(".leit").classList.toggle("open", open);
+  });
   const cl = $("#clearF"); if (cl) cl.onclick = () => { S.filter = { q: "", diets: new Set(), quick: false }; renderCover(); };
 }
 function renderChapter(idx) {
